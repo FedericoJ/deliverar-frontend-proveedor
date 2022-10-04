@@ -11,6 +11,10 @@ import Register from './pages/Register';
 import Products from './pages/Products';
 import DashboardApp from './pages/DashboardApp';
 import Productos from './pages/Productos';
+import AltaProducto from './pages/AltaProducto';
+import AltaOferta from './pages/AltaOferta';
+import EditarProducto from './pages/EditarProducto';
+import Pedidos from './pages/Pedidos';
 
 // ----------------------------------------------------------------------
 
@@ -25,6 +29,10 @@ export default function Router() {
         { path: 'products', element: <Products /> },
         { path: 'blog', element: <Blog /> },
         { path: 'productos', element: <Productos /> },
+        { path: 'altaProducto', element: <AltaProducto /> },
+        { path: 'altaOferta', element: <AltaOferta /> },
+        { path: 'editarProducto', element: <EditarProducto /> },
+        { path: 'pedidos', element: <Pedidos /> },
       ],
     },
     {

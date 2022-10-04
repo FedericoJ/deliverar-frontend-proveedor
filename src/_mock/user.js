@@ -13,7 +13,7 @@ const users = [...Array(5)].map((_, index) => ({
   descuento: sample(['10,00','']),
   vigencia: sample(['10/10/2022','']),
   alta: sample(['30/09/2022']),
-  status: sample(['active', 'banned']),
+  status: sample(['Activa', 'No Activa']),
 }));
 
 export default users;

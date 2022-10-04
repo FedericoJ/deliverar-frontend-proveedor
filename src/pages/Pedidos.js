@@ -17,6 +17,7 @@ import {
   Typography,
   TableContainer,
   TablePagination,
+  Grid,
 } from '@mui/material';
 // components
 import Page from '../components/Page';
@@ -24,21 +25,22 @@ import Label from '../components/Label';
 import Scrollbar from '../components/Scrollbar';
 import Iconify from '../components/Iconify';
 import SearchNotFound from '../components/SearchNotFound';
-import { UserListHead, UserListToolbar, UserMoreMenu } from '../sections/@dashboard/productos';
+import { UserListHead, UserListToolbar, UserMoreMenu } from '../sections/@dashboard/pedidos';
 // mock
-import USERLIST from '../_mock/user';
+import USERLIST from '../_mock/pedidos';
+import {
+  AppWidgetSummary,
+} from '../sections/@dashboard/app';
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'producto', label: 'Producto', alignRight: false },
-  { id: 'codigoProducto', label: 'Código Producto', alignRight: false },
-  { id: 'stock', label: 'Stock', alignRight: false },
-  { id: 'precioUnitario', label: 'Precio Unitario [$]', alignRight: false },
-  { id: 'descuento', label: 'Descuento [%]', alignRight: false },
-  { id: 'vigencia', label: 'Fecha Vigencia', alignRight: false },
-  { id: 'status', label: 'Estado Oferta', alignRight: false },
+  { id: 'pedido', label: 'Pedido', alignRight: false },
+  { id: 'cuit', label: 'CUIT', alignRight: false },
+  { id: 'franquicia', label: 'Franquicia', alignRight: false },
+  { id: 'importe', label: 'Importe [$]', alignRight: false },
   { id: 'alta', label: 'Fecha Alta', alignRight: false },
+  { id: 'status', label: 'Estado Pedido', alignRight: false },
   { id: '' },
 ];
 
@@ -68,7 +70,7 @@ function applySortFilter(array, comparator, query) {
     return a[1] - b[1];
   });
   if (query) {
-    return filter(array, (_user) => _user.producto.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+    return filter(array, (_user) => _user.pedido.toLowerCase().indexOf(query.toLowerCase()) !== -1);
   }
   return stabilizedThis.map((el) => el[0]);
 }
@@ -80,9 +82,9 @@ export default function User() {
 
   const [selected, setSelected] = useState([]);
 
-  const [orderBy, setOrderBy] = useState('producto');
+  const [orderBy, setOrderBy] = useState('pedido');
 
-  const [filterProducto, setFilterProducto] = useState('');
+  const [filterPedido, setFilterPedido] = useState('');
 
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -94,18 +96,18 @@ export default function User() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = USERLIST.map((n) => n.producto);
+      const newSelecteds = USERLIST.map((n) => n.pedido);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, producto) => {
-    const selectedIndex = selected.indexOf(producto);
+  const handleClick = (event, pedido) => {
+    const selectedIndex = selected.indexOf(pedido);
     let newSelected = [];
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, producto);
+      newSelected = newSelected.concat(selected, pedido);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -125,21 +127,36 @@ export default function User() {
     setPage(0);
   };
 
-  const handleFilterByProducto = (event) => {
-    setFilterProducto(event.target.value);
+  const handleFilterByPedido = (event) => {
+    setFilterPedido(event.target.value);
   };
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - USERLIST.length) : 0;
 
-  const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterProducto);
+  const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterPedido);
 
   const isUserNotFound = filteredUsers.length === 0;
 
   return (
     <Page title="User">
       <Container>
+      <Container maxWidth="xl">
+        <Typography variant="h4" sx={{ mb: 5 }}>
+          Bienvenido!
+        </Typography>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={6} md={3}>
+            <AppWidgetSummary title="En curso" total={714000} icon={'ant-design:android-filled'} />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <AppWidgetSummary title="Finalizados" total={1723315} color="warning" icon={'ant-design:windows-filled'} />
+          </Grid>
+        </Grid>
+        </Container>
+
+
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-          <Typography variant="h4" gutterBottom>
+          {/* <Typography variant="h4" gutterBottom>
             Productos
           </Typography>
           <Stack direction="row" marginLeft={80} >
@@ -151,11 +168,11 @@ export default function User() {
           <Button variant="contained" component={RouterLink} to="/dashboard/altaProducto" startIcon={<Iconify icon="eva:plus-fill" />}>
             Alta Producto
           </Button>
-          </Stack>
+          </Stack> */}
         </Stack>
 
         <Card>
-          <UserListToolbar numSelected={selected.length} filterProducto={filterProducto} onFilterProducto={handleFilterByProducto} />
+          <UserListToolbar numSelected={selected.length} filterPedido={filterPedido} onFilterPedido={handleFilterByPedido} />
 
           <Scrollbar>
             <TableContainer sx={{ minWidth: 800 }}>
@@ -171,8 +188,8 @@ export default function User() {
                 />
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, producto, codigoProducto,stock,precioUnitario,descuento,vigencia,status, alta, isVerified } = row;
-                    const isItemSelected = selected.indexOf(producto) !== -1;
+                    const { id, pedido, cuit, franquicia, importe, alta, status } = row;
+                    const isItemSelected = selected.indexOf(pedido) !== -1;
 
                     return (
                       <TableRow
@@ -183,12 +200,11 @@ export default function User() {
                         selected={isItemSelected}
                         aria-checked={isItemSelected}
                       >
-                        {/* <TableCell padding="checkbox">
-                          <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, producto)} />
-                        </TableCell> */}
+                        {<TableCell padding="checkbox">
+                          <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, pedido)} />
+                        </TableCell> }
                         {/* <TableCell component="th" scope="row" padding="none">
                           <Stack direction="row" alignItems="center" spacing={2}>
-                            <Avatar alt={producto} src={avatarUrl} />
                             <Typography variant="subtitle2" noWrap>
                               {producto}
                             </Typography>
@@ -196,19 +212,17 @@ export default function User() {
                         </TableCell> */}
                         <TableCell  align="left">
                           <Typography variant="h6" noWrap>
-                              {producto}
+                              {pedido}
                             </Typography></TableCell>
-                        <TableCell align="left">{codigoProducto}</TableCell>
-                        <TableCell align="left">{stock}</TableCell>
-                        <TableCell align="left">{precioUnitario}</TableCell>
-                        <TableCell align="left">{descuento}</TableCell>
-                        <TableCell align="left">{vigencia}</TableCell>
+                        <TableCell align="left">{cuit}</TableCell>
+                        <TableCell align="left">{franquicia}</TableCell>
+                        <TableCell align="left">{importe}</TableCell>
+                        <TableCell align="left">{alta}</TableCell>
                         <TableCell align="left">
-                          <Label variant="ghost" color={(status === 'No Activa' && 'error') || 'success'}>
+                          <Label variant="ghost" color={(status === 'En Curso' && 'error') || 'success'}>
                             {sentenceCase(status)}
                           </Label>
                         </TableCell>
-                        <TableCell align="left">{alta}</TableCell>
                         <TableCell align="right">
                           <UserMoreMenu />
                         </TableCell>
@@ -226,7 +240,7 @@ export default function User() {
                   <TableBody>
                     <TableRow>
                       <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                        <SearchNotFound searchQuery={filterProducto} />
+                        <SearchNotFound searchQuery={filterPedido} />
                       </TableCell>
                     </TableRow>
                   </TableBody>
