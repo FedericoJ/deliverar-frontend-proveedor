@@ -50,9 +50,8 @@ const ContentStyle = styled('div')(({ theme }) => ({
   margin: 'auto',
   minHeight: '100vh',
   display: 'flex',
-  justifyContent: 'center',
   flexDirection: 'column',
-  padding: theme.spacing(12, 0),
+  padding: theme.spacing(4, 0),
 }));
 
 // ----------------------------------------------------------------------
@@ -87,7 +86,7 @@ export default function AltaProducto() {
           </SectionStyle>
         )} */}
 
-        <Container maxWidth="sm">
+        <Container maxWidth="xl">
           <ContentStyle>
             <Typography variant="h4" gutterBottom>
               Alta de Producto
