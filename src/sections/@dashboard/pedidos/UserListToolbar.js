@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
 // material
 import { styled } from '@mui/material/styles';
-import { Toolbar, Tooltip, IconButton, Typography, OutlinedInput, InputAdornment } from '@mui/material';
+import { Toolbar, Tooltip, IconButton, Typography, OutlinedInput, InputAdornment, Button } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 // component
 import Iconify from '../../../components/Iconify';
+
 
 // ----------------------------------------------------------------------
 
@@ -62,7 +64,10 @@ export default function UserListToolbar({ numSelected, filterPedido, onFilterPed
         />
       )}
 
-      {numSelected > 0 ? (
+        <Button variant="contained" component={RouterLink} to="#" startIcon={<Iconify icon="ic:outline-done-outline" />}>
+            Finalizar Pedido
+        </Button>
+      {/* {numSelected > 0 ? (
         <Tooltip title="Delete">
           <IconButton>
             <Iconify icon="eva:trash-2-fill" />
@@ -74,7 +79,7 @@ export default function UserListToolbar({ numSelected, filterPedido, onFilterPed
             <Iconify icon="ic:round-filter-list" />
           </IconButton>
         </Tooltip>
-      )}
+      )} */}
     </RootStyle>
   );
 }

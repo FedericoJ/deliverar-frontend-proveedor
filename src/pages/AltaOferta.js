@@ -63,8 +63,7 @@ export default function AltaOferta() {
   const mdUp = useResponsive('up', 'md');
 
   return (
-    <Page title="Producto">
-      <RootStyle>
+    <Page title="Alta de Oferta">
         {/* <HeaderStyle>
           <Logo />
 
@@ -88,7 +87,7 @@ export default function AltaOferta() {
         )} */}
 
         <Container maxWidth="sm">
-          <ContentStyle>
+          <ContentStyle >
             <Typography variant="h4" gutterBottom>
               Alta de Oferta
             </Typography>
@@ -99,7 +98,6 @@ export default function AltaOferta() {
 
           </ContentStyle>
         </Container>
-      </RootStyle>
     </Page>
   );
 }

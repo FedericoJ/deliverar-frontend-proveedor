@@ -104,7 +104,7 @@ export default function NotificationsPopover() {
 
   return (
     <>
-      <IconButton
+      {/* <IconButton
         ref={anchorRef}
         color={open ? 'primary' : 'default'}
         onClick={handleOpen}
@@ -175,7 +175,7 @@ export default function NotificationsPopover() {
             View All
           </Button>
         </Box>
-      </MenuPopover>
+      </MenuPopover> */}
     </>
   );
 }

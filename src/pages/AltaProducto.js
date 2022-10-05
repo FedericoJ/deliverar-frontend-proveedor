@@ -63,7 +63,7 @@ export default function AltaProducto() {
   const mdUp = useResponsive('up', 'md');
 
   return (
-    <Page title="Producto">
+    <Page title="Alta de Producto">
       <RootStyle>
         {/* <HeaderStyle>
           <Logo />

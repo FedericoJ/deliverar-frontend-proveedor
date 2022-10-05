@@ -27,11 +27,20 @@ export default function UserMoreMenu() {
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
-        <MenuItem component={RouterLink} to='/dashboard/detallePedido' sx={{ color: 'text.secondary' }}>
+
+        <MenuItem component={RouterLink} to='/dashboard/altaOferta' sx={{ color: 'text.secondary' }}>
           <ListItemIcon>
-            <Iconify icon="bx:detail" width={24} height={24} />
+            <Iconify icon="eva:shopping-bag-fill" width={24} height={24} />
           </ListItemIcon>
-          <ListItemText primary="Detalle" primaryTypographyProps={{ variant: 'body2' }} />
+          <ListItemText primary="Oferta" primaryTypographyProps={{ variant: 'body2' }} />
+        </MenuItem>
+
+
+        <MenuItem component={RouterLink} to='/dashboard/EditarProducto' sx={{ color: 'text.secondary' }}>
+          <ListItemIcon>
+            <Iconify icon="eva:edit-fill" width={24} height={24} />
+          </ListItemIcon>
+          <ListItemText primary="Editar" primaryTypographyProps={{ variant: 'body2' }} />
         </MenuItem>
 
         <MenuItem sx={{ color: 'text.secondary' }}>

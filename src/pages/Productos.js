@@ -1,6 +1,6 @@
 import { filter } from 'lodash';
 import { sentenceCase } from 'change-case';
-import { useState } from 'react';
+import  { useState, useRef } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 // material
 import {
@@ -19,12 +19,16 @@ import {
   TablePagination,
 } from '@mui/material';
 // components
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import { Icon } from '@iconify/react';
 import Page from '../components/Page';
 import Label from '../components/Label';
 import Scrollbar from '../components/Scrollbar';
 import Iconify from '../components/Iconify';
 import SearchNotFound from '../components/SearchNotFound';
 import { UserListHead, UserListToolbar, UserMoreMenu } from '../sections/@dashboard/productos';
+
 // mock
 import USERLIST from '../_mock/user';
 
@@ -73,7 +77,9 @@ function applySortFilter(array, comparator, query) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-export default function User() {
+
+
+export default function Productos() {
   const [page, setPage] = useState(0);
 
   const [order, setOrder] = useState('asc');
@@ -135,17 +141,139 @@ export default function User() {
 
   const isUserNotFound = filteredUsers.length === 0;
 
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    p: 4,
+    borderRadius: '6%',
+    boxShadow: 24,
+    border: '1px solid #DCDDDF',
+
+    
+  };
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const [count, setCount] = useState(0);
+  const onPress = () => setCount(prevCount => prevCount + 1);
+
+  const [openOK, setOpenOK] = useState(false);
+  const handleOpenOK = () => setOpenOK(true);
+  const handleCloseOK = () => setOpenOK(false);
+
+  const [countOK, setCountOK] = useState(0);
+  const onPressOK = () => setCountOK(prevCount => prevCount + 1);
+
+  const inputRef = useRef(null);
+
+  const handleClickFolder = () => {
+    // open file input box on click of other element
+    inputRef.current.click();
+  };
+
+  const handleFileChange = event => {
+    const fileObj = event.target.files && event.target.files[0];
+    if (!fileObj) {
+      return;
+    }
+
+    console.log('fileObj is', fileObj);
+
+    //  reset file input
+    event.target.value = null;
+        // 👇️ is now empty
+        console.log(event.target.files);
+
+        // 👇️ can still access file object here
+        console.log(fileObj);
+        console.log(fileObj.name);
+  };
+
+
   return (
-    <Page title="User">
+    <Page title="Productos">
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
             Productos
           </Typography>
           <Stack direction="row" marginLeft={80} >
-          <Button margin={10} variant="contained" component={RouterLink} to="#" startIcon={<Iconify icon="eva:plus-fill" />}>
+          <Button margin={10} variant="contained" onClick={handleOpen} startIcon={<Iconify icon="akar-icons:arrow-up"  />}>
             Carga Masiva
           </Button>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+                Carga Masiva de Productos
+            </Typography>
+            <Stack marginTop={5} direction="row" alignItems="center" justifyContent="space-between" mb={5}>
+            <Typography id="modal-modal-description" sx={{ mt: 1 }}>
+                Seleccione un archivo....
+            </Typography>
+              <input
+              style={{display: 'none'}}
+              ref={inputRef}
+              type="file"
+              onChange={handleFileChange}
+            />
+            <Icon onClick={handleClickFolder}  icon="akar-icons:folder-add" width="50" height="50" />  
+          </Stack>
+            <Stack marginTop={5} alignItems="center" >
+            <Button variant="contained" onClick={() => {handleOpenOK();handleClose()}} startIcon={<Iconify icon="akar-icons:arrow-up"  />}>
+            Procesar
+          </Button>
+          </Stack>
+          </Box>
+          </Modal>
+
+          
+          <Modal
+            open={openOK}
+            onClose={handleCloseOK}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+                Los productos fueron cargados exitosamente
+            </Typography>
+            <Stack marginTop={5} alignItems="center" >
+            <Button variant="contained" onClick={() => {handleCloseOK()}} >
+            Aceptar
+          </Button>
+          </Stack>
+          </Box>
+          </Modal>
+
+          {/* <Modal
+            open={openOK}
+            onClose={handleCloseOK}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+                Error al procesar el archivo
+            </Typography>
+            <Stack marginTop={5} alignItems="center" >
+            <Button variant="contained" onClick={() => {handleCloseOK()}} >
+            Aceptar
+          </Button>
+          </Stack>
+          </Box>
+          </Modal> */}
+
           </Stack>
           <Stack direction="row" >
           <Button variant="contained" component={RouterLink} to="/dashboard/altaProducto" startIcon={<Iconify icon="eva:plus-fill" />}>

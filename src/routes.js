@@ -15,6 +15,7 @@ import AltaProducto from './pages/AltaProducto';
 import AltaOferta from './pages/AltaOferta';
 import EditarProducto from './pages/EditarProducto';
 import Pedidos from './pages/Pedidos';
+import DetallePedido from './pages/DetallePedido';
 
 // ----------------------------------------------------------------------
 
@@ -24,15 +25,13 @@ export default function Router() {
       path: '/dashboard',
       element: <DashboardLayout />,
       children: [
-        { path: 'app', element: <DashboardApp /> },
-        { path: 'user', element: <User /> },
         { path: 'products', element: <Products /> },
-        { path: 'blog', element: <Blog /> },
         { path: 'productos', element: <Productos /> },
         { path: 'altaProducto', element: <AltaProducto /> },
         { path: 'altaOferta', element: <AltaOferta /> },
         { path: 'editarProducto', element: <EditarProducto /> },
         { path: 'pedidos', element: <Pedidos /> },
+        { path: 'detallePedido', element: <DetallePedido /> },
       ],
     },
     {
@@ -47,7 +46,7 @@ export default function Router() {
       path: '/',
       element: <LogoOnlyLayout />,
       children: [
-        { path: '/', element: <Navigate to="/dashboard/app" /> },
+        { path: '/', element: <Navigate to="/dashboard/pedidos" /> },
         { path: '404', element: <NotFound /> },
         { path: '*', element: <Navigate to="/404" /> },
       ],

@@ -68,14 +68,14 @@ export default function Register() {
           <Logo />
           {smUp && (
             <Typography variant="body2" sx={{ mt: { md: -2 } }}>
-              Already have an account? {''}
+              ¿Ya estás registrado? {''}
               <Link variant="subtitle2" component={RouterLink} to="/login">
-                Login
+                Iniciar Sesión
               </Link>
             </Typography>
           )}
         </HeaderStyle>
-
+{/* 
         {mdUp && (
           <SectionStyle>
             <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
@@ -83,20 +83,20 @@ export default function Register() {
             </Typography>
             <img alt="register" src="/static/illustrations/illustration_register.png" />
           </SectionStyle>
-        )}
+        )} */}
 
         <Container>
           <ContentStyle>
             <Typography variant="h4" gutterBottom>
-              Get started absolutely free.
+              Registrate
             </Typography>
 
-            <Typography sx={{ color: 'text.secondary', mb: 5 }}>Free forever. No credit card needed.</Typography>
+            <Typography sx={{ color: 'text.secondary', mb: 5 }}>Registrate con tus datos o mediante una red social</Typography>
 
             <AuthSocial />
 
             <RegisterForm />
-
+{/* 
             <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mt: 3 }}>
               By registering, I agree to Minimal&nbsp;
               <Link underline="always" color="text.primary" href="#">
@@ -107,13 +107,13 @@ export default function Register() {
                 Privacy Policy
               </Link>
               .
-            </Typography>
+            </Typography> */}
 
             {!smUp && (
               <Typography variant="body2" sx={{ mt: 3, textAlign: 'center' }}>
-                Already have an account?{' '}
+                ¿Ya estás registrado? {''}
                 <Link variant="subtitle2" to="/login" component={RouterLink}>
-                  Login
+                Iniciar Sesión
                 </Link>
               </Typography>
             )}

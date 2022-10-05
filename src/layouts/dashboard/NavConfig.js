@@ -6,9 +6,14 @@ import Iconify from '../../components/Iconify';
 const getIcon = (name) => <Iconify icon={name} width={22} height={22} />;
 
 const navConfig = [
+  // {
+  //   title: 'dashboard',
+  //   path: '/dashboard/app',
+  //   icon: getIcon('eva:pie-chart-2-fill'),
+  // },
   {
-    title: 'dashboard',
-    path: '/dashboard/app',
+    title: 'pedidos',
+    path: '/dashboard/pedidos',
     icon: getIcon('eva:pie-chart-2-fill'),
   },
   {
@@ -16,26 +21,22 @@ const navConfig = [
     path: '/dashboard/productos',
     icon: getIcon('eva:shopping-bag-fill'),
   },
-  {
-    title: 'pedidos',
-    path: '/dashboard/pedidos',
-    icon: getIcon('eva:shopping-bag-fill'),
-  },
-  {
-    title: 'user',
-    path: '/dashboard/user',
-    icon: getIcon('eva:people-fill'),
-  },
-  {
-    title: 'product',
-    path: '/dashboard/products',
-    icon: getIcon('eva:shopping-bag-fill'),
-  },
-  {
-    title: 'blog',
-    path: '/dashboard/blog',
-    icon: getIcon('eva:file-text-fill'),
-  },
+ 
+  // {
+  //   title: 'user',
+  //   path: '/dashboard/user',
+  //   icon: getIcon('eva:people-fill'),
+  // },
+  // {
+  //   title: 'product',
+  //   path: '/dashboard/products',
+  //   icon: getIcon('eva:shopping-bag-fill'),
+  // },
+  // {
+  //    title: 'blog',
+  //    path: '/dashboard/blog',
+  //   icon: getIcon('eva:file-text-fill'),
+  // },
   {
     title: 'login',
     path: '/login',

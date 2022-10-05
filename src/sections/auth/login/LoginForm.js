@@ -40,17 +40,17 @@ export default function LoginForm() {
   } = methods;
 
   const onSubmit = async () => {
-    navigate('/dashboard', { replace: true });
+    navigate('/dashboard/pedidos', { replace: true });
   };
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
-        <RHFTextField name="email" label="Email address" />
+        <RHFTextField name="email" label="Mail" />
 
         <RHFTextField
           name="password"
-          label="Password"
+          label="Contraseña"
           type={showPassword ? 'text' : 'password'}
           InputProps={{
             endAdornment: (
@@ -65,14 +65,14 @@ export default function LoginForm() {
       </Stack>
 
       <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
-        <RHFCheckbox name="remember" label="Remember me" />
+        <RHFCheckbox name="remember" label="Recordarme" />
         <Link variant="subtitle2" underline="hover">
-          Forgot password?
+          ¿Olvidaste tu contraseña?
         </Link>
       </Stack>
 
       <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>
-        Login
+        Iniciar Sesión
       </LoadingButton>
     </FormProvider>
   );
