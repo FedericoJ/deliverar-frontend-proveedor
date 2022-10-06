@@ -1,7 +1,7 @@
 import { useState } from 'react';
 // material
 import { styled, alpha } from '@mui/material/styles';
-import { Input, Slide, Button, IconButton, InputAdornment, ClickAwayListener } from '@mui/material';
+import { Input, Slide, Button, IconButton, InputAdornment, ClickAwayListener,Typography } from '@mui/material';
 // component
 import Iconify from '../../components/Iconify';
 
@@ -43,35 +43,40 @@ export default function Searchbar() {
     setOpen(false);
   };
 
-  // return (
-  //   <ClickAwayListener onClickAway={handleClose}>
-  //     <div>
-  //       {!isOpen && (
-  //         <IconButton onClick={handleOpen}>
-  //           <Iconify icon="eva:search-fill" width={20} height={20} />
-  //         </IconButton>
-  //       )}
+  
 
-  //       <Slide direction="down" in={isOpen} mountOnEnter unmountOnExit>
-  //         <SearchbarStyle>
-  //           <Input
-  //             autoFocus
-  //             fullWidth
-  //             disableUnderline
-  //             placeholder="Search…"
-  //             startAdornment={
-  //               <InputAdornment position="start">
-  //                 <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled', width: 20, height: 20 }} />
-  //               </InputAdornment>
-  //             }
-  //             sx={{ mr: 1, fontWeight: 'fontWeightBold' }}
-  //           />
-  //           <Button variant="contained" onClick={handleClose}>
-  //             Search
-  //           </Button>
-  //         </SearchbarStyle>
-  //       </Slide>
-  //     </div>
-  //   </ClickAwayListener>
-  // );
+   return (
+    <Typography color="#366BD6" variant="h3" component="h1">
+    Fanacoa - 20352677958
+    </Typography>
+    //  <ClickAwayListener onClickAway={handleClose}>
+    //    <div>
+    //      {!isOpen && (
+    //        <IconButton onClick={handleOpen}>
+    //          <Iconify icon="eva:search-fill" width={20} height={20} />
+    //        </IconButton>
+    //      )}
+
+    //      <Slide direction="down" in={isOpen} mountOnEnter unmountOnExit>
+    //        <SearchbarStyle>
+    //          <Input
+    //            autoFocus
+    //            fullWidth
+    //            disableUnderline
+    //            placeholder="Search…"
+    //            startAdornment={
+    //              <InputAdornment position="start">
+    //                <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled', width: 20, height: 20 }} />
+    //              </InputAdornment>
+    //            }
+    //            sx={{ mr: 1, fontWeight: 'fontWeightBold' }}
+    //          />
+    //          <Button variant="contained" onClick={handleClose}>
+    //            Search
+    //          </Button>
+    //        </SearchbarStyle>
+    //      </Slide>
+    //    </div>
+    //  </ClickAwayListener>
+   );
 }
