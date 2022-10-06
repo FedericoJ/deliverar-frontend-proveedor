@@ -1,9 +1,15 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
+
 // material
 import { styled, alpha } from '@mui/material/styles';
-import { Input, Slide, Button, IconButton, InputAdornment, ClickAwayListener,Typography } from '@mui/material';
+import { Input, Slide, Button, IconButton, InputAdornment, ClickAwayListener,Typography, Grid } from '@mui/material';
+import { EncabezadoProveedor } from '../../sections/@dashboard/app'
 // component
+
 import Iconify from '../../components/Iconify';
+
+
 
 // ----------------------------------------------------------------------
 
@@ -30,6 +36,7 @@ const SearchbarStyle = styled('div')(({ theme }) => ({
   },
 }));
 
+
 // ----------------------------------------------------------------------
 
 export default function Searchbar() {
@@ -41,14 +48,17 @@ export default function Searchbar() {
 
   const handleClose = () => {
     setOpen(false);
-  };
-
-  
+  };  
 
    return (
-    <Typography color="#366BD6" variant="h3" component="h1">
-    Fanacoa - 20352677958
-    </Typography>
+  <Grid container spacing={3}>
+    <Grid item xs={12} sm={6} md={3}>
+      <EncabezadoProveedor proveedor="Fanaoca" />
+    </Grid>
+    <Grid item xs={12} sm={6} md={3}>
+      <EncabezadoProveedor cuit="20352677958"/>
+    </Grid>
+  </Grid>
     //  <ClickAwayListener onClickAway={handleClose}>
     //    <div>
     //      {!isOpen && (
