@@ -146,10 +146,10 @@ export default function User() {
         </Typography>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="En curso" total={714000} icon={'eva:car-outline'} />
+            <AppWidgetSummary title="En curso" total={714000}  color="error" icon={'eva:car-outline'} />
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Finalizados" total={1723315} color="warning" icon={'icons8:finish-flag'} />
+            <AppWidgetSummary title="Finalizados" total={1723315} color="success" icon={'icons8:finish-flag'} />
           </Grid>
         </Grid>
         </Container>

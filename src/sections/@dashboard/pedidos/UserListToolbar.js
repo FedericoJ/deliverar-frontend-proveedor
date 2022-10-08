@@ -64,7 +64,7 @@ export default function UserListToolbar({ numSelected, filterPedido, onFilterPed
         />
       )}
 
-        <Button variant="contained" component={RouterLink} to="#" startIcon={<Iconify icon="ic:outline-done-outline" />}>
+        <Button variant="contained" component={RouterLink} to="#" startIcon={<Iconify icon="akar-icons:check" />}>
             Finalizar Pedido
         </Button>
       {/* {numSelected > 0 ? (
