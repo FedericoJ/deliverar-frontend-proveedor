@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 import { useState } from 'react';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
+import axios from 'axios';
 // form
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -16,14 +17,21 @@ import InputLabel from '@mui/material/InputLabel';
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
 
+
 // ----------------------------------------------------------------------
+
+
+
 
 export default function AltaProductoForm() {
 
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
-
+  const [name,setName]=useState('');
+  const [codigo,setCodigo]=useState('');
+  const [Stock,setStock]=useState(0);
+  const [Precio,setPrecio]=useState(0);
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
     password: Yup.string().required('Password is required'),
@@ -46,28 +54,42 @@ export default function AltaProductoForm() {
     formState: { isSubmitting },
   } = methods;
 
-  const onSubmit = async () => {
-    navigate('/dashboard', { replace: true });
-  };
+ const onSubmit=(e)=>{
+    // navigate('/dashboard', { replace: true });
+      e.preventDefault();
+      axios.post(`http://localhost:5000/products/createProduct`,{ descripcion: name,
+          codProducto: codigo,
+          stock:Stock,
+          precio:Precio,
+          cuit:0})
+         .then(res => {
+          navigate('/dashboard/productos', { replace: true });
+         }) 
+         .catch(error=>{
+          alert(error)
+         })
+    
+     
 
+    };
+
+    const handleStock=(e)=>{
+      const onlyNums = e.target.value.replace(/[^0-9]/g, '');
+      setStock(onlyNums);
+    }
+
+    const handlePrecio=(e)=>{
+      const onlyNums = e.target.value.replace(/[^0-9]/g, '');
+      setPrecio(onlyNums);
+    }
+  
   return (
-    <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+    <FormProvider methods={methods}>
       <Stack spacing={3}>
-        <RHFTextField name="producto" label="Nombre Producto" />
-        <RHFTextField name="codigoProducto" label="Codigo Producto" />
-        <RHFTextField name="stock" label="Stock" />
-        <RHFTextField name="precio" label="Precio Unitario [$]" />
-        {/* <RHFTextField name="descuento" label="Descuento [%]" />
-        <TextField
-            name="vigencia"
-            id="date"
-            type="date"
-            label="Fin Vigencia Oferta"
-            InputLabelProps={{
-              shrink: true
-            }}
-          />
-           */}
+        <RHFTextField name="producto" label="Nombre Producto" value={name} onChange={e=>setName(e.target.value)}/>
+        <RHFTextField name="codigoProducto" label="Codigo Producto" value={codigo} onChange={e=>setCodigo(e.target.value)}/>
+        <RHFTextField name="stock" label="Stock" value={Stock} onChange={handleStock}/>
+        <RHFTextField name="precio" label="Precio Unitario [$]" value={Precio} onChange={handlePrecio} />
       </Stack>
 
       <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
@@ -77,7 +99,7 @@ export default function AltaProductoForm() {
         </Link> */}
       </Stack>
 
-      <LoadingButton fullWidth size="large" type="submit" variant="contained" component={RouterLink} to='/dashboard/Productos'>
+      <LoadingButton fullWidth size="large" type="submit" variant="contained" onClick={onSubmit}>
         Guardar
       </LoadingButton>
     </FormProvider>

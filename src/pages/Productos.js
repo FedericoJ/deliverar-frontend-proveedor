@@ -1,7 +1,8 @@
 import { filter } from 'lodash';
 import { sentenceCase } from 'change-case';
-import  { useState, useRef } from 'react';
+import  { useState, useRef,useEffect} from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import axios from 'axios';
 // material
 import {
   Card,
@@ -35,14 +36,14 @@ import USERLIST from '../_mock/user';
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'producto', label: 'Producto', alignRight: false },
-  { id: 'codigoProducto', label: 'Código Producto', alignRight: false },
-  { id: 'stock', label: 'Stock', alignRight: false },
-  { id: 'precioUnitario', label: 'Precio Unitario [$]', alignRight: false },
-  { id: 'descuento', label: 'Descuento [%]', alignRight: false },
-  { id: 'vigencia', label: 'Fecha Vigencia', alignRight: false },
-  { id: 'status', label: 'Estado Oferta', alignRight: false },
-  { id: 'alta', label: 'Fecha Alta', alignRight: false },
+  { id: 'Descripcion', label: 'Producto', alignRight: false },
+  { id: 'CodProducto', label: 'Código Producto', alignRight: false },
+  { id: 'Stock', label: 'Stock', alignRight: false },
+  { id: 'precio', label: 'Precio Unitario [$]', alignRight: false },
+  { id: 'porcentaje', label: 'Descuento [%]', alignRight: false },
+  { id: 'FechaVigencia', label: 'Fecha Vigencia', alignRight: false },
+  { id: 'EstadoOferta', label: 'Estado Oferta', alignRight: false },
+  { id: 'FecAlta', label: 'Fecha Alta', alignRight: false },
   { id: '' },
 ];
 
@@ -80,6 +81,11 @@ function applySortFilter(array, comparator, query) {
 
 
 export default function Productos() {
+
+   
+
+  const [productList,setProductList]=useState(USERLIST);
+
   const [page, setPage] = useState(0);
 
   const [order, setOrder] = useState('asc');
@@ -92,6 +98,17 @@ export default function Productos() {
 
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
+  useEffect(() => {
+      axios.get(`http://localhost:5000/products/getProducts?cuit=0`)
+        .then(res => {
+          console.log(res.data)
+          if (res.data !== undefined){
+            setProductList(res.data);
+          }
+        })
+
+  },[]);
+
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -100,7 +117,7 @@ export default function Productos() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = USERLIST.map((n) => n.producto);
+      const newSelecteds = productList.map((n) => n.producto);
       setSelected(newSelecteds);
       return;
     }
@@ -135,10 +152,10 @@ export default function Productos() {
     setFilterProducto(event.target.value);
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - USERLIST.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - productList.length) : 0;
 
-  const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterProducto);
-
+  const filteredUsers = applySortFilter(productList, getComparator(order, orderBy), filterProducto);
+ 
   const isUserNotFound = filteredUsers.length === 0;
 
   const style = {
@@ -292,51 +309,36 @@ export default function Productos() {
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={USERLIST.length}
+                  rowCount={productList.length}
                   numSelected={selected.length}
                   onRequestSort={handleRequestSort}
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, producto, codigoProducto,stock,precioUnitario,descuento,vigencia,status, alta, isVerified } = row;
-                    const isItemSelected = selected.indexOf(producto) !== -1;
+                    const {Descripcion, CodProducto,Stock,precio,porcentaje,FechaVigencia,EstadoOferta, FecAlta} = row;
+                    const isItemSelected = selected.indexOf(CodProducto) !== -1;
 
                     return (
                       <TableRow
                         hover
-                        key={id}
+                        key={CodProducto}
                         tabIndex={-1}
                         role="checkbox"
                         selected={isItemSelected}
                         aria-checked={isItemSelected}
                       >
-                        {/* <TableCell padding="checkbox">
-                          <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, producto)} />
-                        </TableCell> */}
-                        {/* <TableCell component="th" scope="row" padding="none">
-                          <Stack direction="row" alignItems="center" spacing={2}>
-                            <Avatar alt={producto} src={avatarUrl} />
-                            <Typography variant="subtitle2" noWrap>
-                              {producto}
-                            </Typography>
-                          </Stack>
-                        </TableCell> */}
                         <TableCell  align="left">
                           <Typography variant="h6" noWrap>
-                              {producto}
+                              {Descripcion}
                             </Typography></TableCell>
-                        <TableCell align="left">{codigoProducto}</TableCell>
-                        <TableCell align="left">{stock}</TableCell>
-                        <TableCell align="left">{precioUnitario}</TableCell>
-                        <TableCell align="left">{descuento}</TableCell>
-                        <TableCell align="left">{vigencia}</TableCell>
-                        <TableCell align="left">
-                          <Label variant="ghost" color={(status === 'No Activa' && 'error') || 'success'}>
-                            {sentenceCase(status)}
-                          </Label>
-                        </TableCell>
-                        <TableCell align="left">{alta}</TableCell>
+                        <TableCell align="left">{CodProducto}</TableCell>
+                        <TableCell align="left">{Stock}</TableCell>
+                        <TableCell align="left">{precio}</TableCell>
+                        <TableCell align="left">{porcentaje}</TableCell>
+                        <TableCell align="left">{FechaVigencia}</TableCell>
+                        <TableCell align="left">{EstadoOferta}</TableCell>
+                        <TableCell align="left">{FecAlta}</TableCell>
                         <TableCell align="right">
                           <UserMoreMenu />
                         </TableCell>
@@ -366,7 +368,7 @@ export default function Productos() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={USERLIST.length}
+            count={productList.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}

@@ -1,4 +1,5 @@
 import { Link as RouterLink } from 'react-router-dom';
+import {react,useState} from 'react';
 
 // @mui
 import { styled } from '@mui/material/styles';
@@ -58,7 +59,6 @@ const ContentStyle = styled('div')(({ theme }) => ({
 
 export default function AltaProducto() {
   const smUp = useResponsive('up', 'sm');
-
   const mdUp = useResponsive('up', 'md');
 
   return (
