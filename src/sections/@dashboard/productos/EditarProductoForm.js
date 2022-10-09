@@ -12,6 +12,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
+import axios from 'axios';
 // components
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
@@ -19,11 +20,15 @@ import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hoo
 
 // ----------------------------------------------------------------------
 
-export default function EditarProductoForm() {
+export default function EditarProductoForm({nombre,cod,stockParam,precioParam}) {
 
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
+  const [name,setName]=useState(nombre);
+  const [codigo,setCodigo]=useState(cod);
+  const [Stock,setStock]=useState(stockParam);
+  const [Precio,setPrecio]=useState(precioParam);
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
@@ -47,17 +52,39 @@ export default function EditarProductoForm() {
     formState: { isSubmitting },
   } = methods;
 
-  const onSubmit = async () => {
-    navigate('/dashboard', { replace: true });
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    axios.post(`http://localhost:5000/products/updateProductByCode`,{ descripcion: name,
+    codProducto: codigo,
+    stock:Stock,
+    precio:Precio,
+    cuit:0})
+   .then(res => {
+      navigate('/dashboard/productos', { replace: true });
+   }) 
+   .catch(error=>{
+    alert(error)
+   })
   };
+
+  const handleStock=(e)=>{
+    const onlyNums = e.target.value.replace(/[^0-9]/g, '');
+    setStock(onlyNums);
+  }
+
+  const handlePrecio=(e)=>{
+    const onlyNums = e.target.value.replace(/[^0-9]/g, '');
+    setPrecio(onlyNums);
+  }
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
-        <RHFTextField name="producto" disabled label="Nombre Producto" />
-        <RHFTextField name="codigoProducto" disabled label="Codigo Producto" />
-        <RHFTextField name="stock" label="Stock" />
-        <RHFTextField name="precio" label="Precio Unitario [$]" />
+        <RHFTextField name="producto" disabled label="Nombre Producto" value={name} onChange={e=>setName(e.target.value)} />
+        <RHFTextField name="codigoProducto" disabled label="Codigo Producto" value={codigo} onChange={e=>setCodigo(e.target.value)} />
+        <RHFTextField name="stock" label="Stock" value={Stock} onChange={handleStock}/>
+        <RHFTextField name="precio" label="Precio Unitario [$]" value={Precio} onChange={handlePrecio} />
         {/* <RHFTextField name="descuento" label="Descuento [%]" />
         <TextField
             name="vigencia"
@@ -78,7 +105,7 @@ export default function EditarProductoForm() {
         </Link> */}
       </Stack>
 
-      <LoadingButton fullWidth size="large" type="submit" variant="contained" component={RouterLink} to='/dashboard/Productos'>
+      <LoadingButton fullWidth size="large" type="submit" variant="contained" onClick={onSubmit}>
         Guardar
       </LoadingButton>
     </FormProvider>

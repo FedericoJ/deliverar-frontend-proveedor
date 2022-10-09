@@ -1,16 +1,16 @@
 import { useRef, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 // material
-import { Menu, MenuItem, IconButton, ListItemIcon, ListItemText } from '@mui/material';
+import { Menu, MenuItem, IconButton, ListItemIcon, ListItemText,Link } from '@mui/material';
 // component
 import Iconify from '../../../components/Iconify';
 
 // ----------------------------------------------------------------------
 
-export default function UserMoreMenu() {
+export default function UserMoreMenu({product}) {
   const ref = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
-
+  // <Link to={`/users/${user.id}`}
   return (
     <>
       <IconButton ref={ref} onClick={() => setIsOpen(true)}>
@@ -28,7 +28,7 @@ export default function UserMoreMenu() {
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
 
-        <MenuItem component={RouterLink} to='/dashboard/altaOferta' sx={{ color: 'text.secondary' }}>
+        <MenuItem component ={RouterLink} to={`/dashboard/altaOferta?codProducto=${product.CodProducto}&Nombre=${product.Descripcion}`}  sx={{ color: 'text.secondary' }}>
           <ListItemIcon>
             <Iconify icon="eva:shopping-bag-fill" width={24} height={24} />
           </ListItemIcon>
@@ -36,7 +36,8 @@ export default function UserMoreMenu() {
         </MenuItem>
 
 
-        <MenuItem component={RouterLink} to='/dashboard/EditarProducto' sx={{ color: 'text.secondary' }}>
+        <MenuItem component={RouterLink} to={`/dashboard/EditarProducto?codProducto=${product.CodProducto}&Nombre=${product.Descripcion}&Stock=${product.Stock}&Precio=${product.precio}`} 
+        sx={{ color: 'text.secondary' }}>
           <ListItemIcon>
             <Iconify icon="eva:edit-fill" width={24} height={24} />
           </ListItemIcon>
