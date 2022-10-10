@@ -37,7 +37,8 @@ await axios.get(`https://www.googleapis.com/oauth2/v3/userinfo`,
       console.log(res.data)
       if (res.data !== undefined){
         localStorage.setItem("name", res.data.name);
-      localStorage.setItem("email", res.data.email);
+        localStorage.setItem("email", res.data.email);
+        localStorage.setItem("profilePic", res.data.picture);
       }
     })
 };
