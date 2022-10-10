@@ -42,10 +42,9 @@ DashboardSidebar.propTypes = {
   onCloseSidebar: PropTypes.func,
 };
 
-export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
+export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar,isUserLoggedIn }) {
   const { pathname } = useLocation();
 
-  const { loggedIn, setLoggedIn } = useContext(AppContext);
   const isDesktop = useResponsive('up', 'lg');
 
   useEffect(() => {
@@ -66,7 +65,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
         <Logo />
       </Box>
       {
-      (loggedIn === undefined) ?
+      (localStorage.getItem("token") === undefined || localStorage.getItem("token") === null) ?
       (
         <></>
       )
@@ -78,7 +77,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
             <Avatar src={account.photoURL} alt="photoURL" />
             <Box sx={{ ml: 2 }}>
               <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                {account.displayName}
+                {localStorage.getItem("name")}
               </Typography>
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                 {account.role}

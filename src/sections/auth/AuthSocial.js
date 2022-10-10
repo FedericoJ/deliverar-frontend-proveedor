@@ -3,24 +3,44 @@ import { useNavigate } from "react-router-dom";
 import {useGoogleLogin } from '@react-oauth/google';
 // material
 import { Stack, Button, Divider, Typography } from '@mui/material';
+import axios from 'axios';
 // component
 import Iconify from '../../components/Iconify';
 import AppContext from '../../context/index';
 
 // ----------------------------------------------------------------------
 
-export default function AuthSocial(props) {
+export default function AuthSocial() {
   
   const navigate = useNavigate();
   const { loggedIn, setLoggedIn } = useContext(AppContext);
   const login = useGoogleLogin({
     onSuccess: tokenResponse => {
-      console.log(tokenResponse)
-      // localStorage.setItem("ID", "");
-       setLoggedIn(true);
+      console.log(tokenResponse.access_token)
+      localStorage.setItem("token", tokenResponse.access_token);
+      setLoggedIn(true);
       navigate('/dashboard/pedidos');
     }
   });
+
+    
+  useEffect(() => {
+    console.log('context here: ', loggedIn);
+    axios.get(`https://www.googleapis.com/oauth2/v3/userinfo`,
+    {
+      headers: {
+          "Content-type": "application/json",
+           "Authorization": `Bearer ya29.a0Aa4xrXNa66_8RtO6x8FBOBGW5P6eggCLQNou8lu7yykKSNbTRH3OJMkiHa0ZjPT3MtrqcXTe-yx7pxYcFuF7bBSrX7PpGJYnUWumk_anpuZq6uTqLPgTSSZSqe9BPMQdYk4c50Q2pZcmjjklRQtZ54yQrgBYGAaCgYKATASARISFQEjDvL9bYG0RNxMvO6m2oa4wxFUtQ0165`,
+      },
+  })
+    .then(res => {
+      console.log(res.data)
+      if (res.data !== undefined){
+        localStorage.setItem("name", res.data.name);
+      localStorage.setItem("email", res.data.email);
+      }
+    })
+}, [loggedIn]);
 
 
   return (

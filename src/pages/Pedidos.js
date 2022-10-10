@@ -1,6 +1,6 @@
 import { filter } from 'lodash';
 import { sentenceCase } from 'change-case';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 // material
 import {
@@ -31,6 +31,7 @@ import USERLIST from '../_mock/pedidos';
 import {
   AppWidgetSummary,
 } from '../sections/@dashboard/app';
+import AppContext from '../context/index';
 
 // ----------------------------------------------------------------------
 
@@ -136,6 +137,8 @@ export default function User() {
   const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterPedido);
 
   const isUserNotFound = filteredUsers.length === 0;
+
+  const { loggedIn, setLoggedIn } = useContext(AppContext);
 
   return (
     <Page title="Pedidos">

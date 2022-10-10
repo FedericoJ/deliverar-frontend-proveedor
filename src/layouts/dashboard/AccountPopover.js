@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useContext } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { alpha } from '@mui/material/styles';
@@ -7,6 +7,7 @@ import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton } from '@
 import MenuPopover from '../../components/MenuPopover';
 // mocks_
 import account from '../../_mock/account';
+import AppContext from '../../context/index';
 
 // ----------------------------------------------------------------------
 
@@ -34,17 +35,30 @@ export default function AccountPopover() {
   const anchorRef = useRef(null);
 
   const [open, setOpen] = useState(null);
+  const { loggedIn, setLoggedIn } = useContext(AppContext);
 
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
   };
 
   const handleClose = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("name");
+    localStorage.removeItem("email");
+    console.log(localStorage.getItem("token"));
     setOpen(null);
+    setLoggedIn(false);
   };
 
   return (
     <>
+    {
+          (localStorage.getItem("token") === undefined || localStorage.getItem("token") === null)
+          ?
+          <></>
+          :
+          (
+            <>
       <IconButton
         ref={anchorRef}
         onClick={handleOpen}
@@ -65,8 +79,8 @@ export default function AccountPopover() {
       >
         <Avatar src={account.photoURL} alt="photoURL" />
       </IconButton>
-
-      <MenuPopover
+        
+          <MenuPopover
         open={Boolean(open)}
         anchorEl={open}
         onClose={handleClose}
@@ -82,10 +96,10 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {account.displayName}
+            {localStorage.getItem("name")}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {account.email}
+            {localStorage.getItem("email")}
           </Typography>
         </Box>
 
@@ -105,6 +119,10 @@ export default function AccountPopover() {
           Logout
         </MenuItem>
       </MenuPopover>
+</>
+          )
+}
+      
     </>
   );
 }
