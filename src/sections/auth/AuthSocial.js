@@ -18,15 +18,15 @@ export default function AuthSocial() {
     onSuccess: tokenResponse => {
       console.log(tokenResponse.access_token)
       localStorage.setItem("token", tokenResponse.access_token);
+      getUserData();
       // setLoggedIn(true);
       navigate('/dashboard/pedidos');
     }
   });
 
     
-  useEffect(() => {
-    console.log('context here: ', loggedIn);
-    axios.get(`https://www.googleapis.com/oauth2/v3/userinfo`,
+  const getUserData = async() => {
+await axios.get(`https://www.googleapis.com/oauth2/v3/userinfo`,
     {
       headers: {
           "Content-type": "application/json",
@@ -40,7 +40,7 @@ export default function AuthSocial() {
       localStorage.setItem("email", res.data.email);
       }
     })
-}, [loggedIn]);
+};
 
 
   return (
