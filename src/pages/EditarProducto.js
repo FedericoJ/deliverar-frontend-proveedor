@@ -58,33 +58,19 @@ const ContentStyle = styled('div')(({ theme }) => ({
 
 export default function EditarProducto() {
   const smUp = useResponsive('up', 'sm');
-
   const mdUp = useResponsive('up', 'md');
+
+  const searchLocation = window.location.search?.slice(1);
+
+  const params = new URLSearchParams(searchLocation);
+  const codProducto = params.get('codProducto');
+  const nomProduct =params.get('Nombre');
+  const stockActual =params.get('Stock');
+  const precioActual=params.get('Precio');
 
   return (
     <Page title="Producto">
       <RootStyle>
-        {/* <HeaderStyle>
-          <Logo />
-
-          {smUp && (
-            <Typography variant="body2" sx={{ mt: { md: -2 } }}>
-              Don’t have an account? {''}
-              <Link variant="subtitle2" component={RouterLink} to="/register">
-                Get started
-              </Link>
-            </Typography>
-          )}
-        </HeaderStyle>
-
-        {mdUp && (
-          <SectionStyle>
-            <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-              Hi, Welcome Back
-            </Typography>
-            <img src="/static/illustrations/illustration_login.png" alt="login" />
-          </SectionStyle>
-        )} */}
 
         <Container maxWidth="sm">
           <ContentStyle>
@@ -94,7 +80,7 @@ export default function EditarProducto() {
 
             {/* <AuthSocial /> */}
 
-            <EditarProductoForm />
+            <EditarProductoForm nombre={nomProduct} cod={codProducto} stockParam={stockActual} precioParam ={precioActual}/>
 
           </ContentStyle>
         </Container>

@@ -1,4 +1,4 @@
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink ,useLocation} from 'react-router-dom';
 
 // @mui
 import { styled } from '@mui/material/styles';
@@ -13,6 +13,9 @@ import Logo from '../components/Logo';
 
 
 // ----------------------------------------------------------------------
+
+
+
 
 const RootStyle = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
@@ -58,8 +61,15 @@ const ContentStyle = styled('div')(({ theme }) => ({
 
 export default function AltaOferta() {
   const smUp = useResponsive('up', 'sm');
-
   const mdUp = useResponsive('up', 'md');
+  const location = useLocation();
+  const searchLocation = window.location.search?.slice(1);
+
+  const params = new URLSearchParams(searchLocation);
+  const codProducto = params.get('codProducto');
+  const nomProduct =params.get('Nombre');
+  console.log(nomProduct)
+
 
   return (
     <Page title="Alta de Oferta">
@@ -93,7 +103,7 @@ export default function AltaOferta() {
 
             {/* <AuthSocial /> */}
 
-            <AltaOfertaForm />
+            <AltaOfertaForm nombre={nomProduct} codigo={codProducto}/>
 
           </ContentStyle>
         </Container>

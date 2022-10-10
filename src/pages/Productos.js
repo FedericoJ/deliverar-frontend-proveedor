@@ -340,7 +340,7 @@ export default function Productos() {
                         <TableCell align="left">{EstadoOferta}</TableCell>
                         <TableCell align="left">{FecAlta}</TableCell>
                         <TableCell align="right">
-                          <UserMoreMenu />
+                          <UserMoreMenu product ={row}/>
                         </TableCell>
                       </TableRow>
                     );
