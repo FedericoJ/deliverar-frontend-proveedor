@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 // material
 import { styled } from '@mui/material/styles';
@@ -14,6 +14,7 @@ import Scrollbar from '../../components/Scrollbar';
 import NavSection from '../../components/NavSection';
 //
 import navConfig from './NavConfig';
+import AppContext from '../../context/index';
 
 // ----------------------------------------------------------------------
 
@@ -44,6 +45,7 @@ DashboardSidebar.propTypes = {
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   const { pathname } = useLocation();
 
+  const { loggedIn, setLoggedIn } = useContext(AppContext);
   const isDesktop = useResponsive('up', 'lg');
 
   useEffect(() => {
@@ -63,8 +65,14 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
       <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>
         <Logo />
       </Box>
-
-      <Box sx={{ mb: 5, mx: 2.5 }}>
+      {
+      (loggedIn === undefined) ?
+      (
+        <></>
+      )
+      :
+      (
+        <Box sx={{ mb: 5, mx: 2.5 }}>
         <Link underline="none" component={RouterLink} to="#">
           <AccountStyle>
             <Avatar src={account.photoURL} alt="photoURL" />
@@ -79,6 +87,9 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
           </AccountStyle>
         </Link>
       </Box>
+      )
+      }
+
 
       <NavSection navConfig={navConfig} />
 

@@ -4,6 +4,7 @@ import 'simplebar/src/simplebar.css';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 //
 import App from './App';
@@ -17,7 +18,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <HelmetProvider>
     <BrowserRouter>
+<GoogleOAuthProvider clientId="1085960615601-beqhkaflb01h6pcg2m4apfsjcp6o4aia.apps.googleusercontent.com">
       <App />
+      </GoogleOAuthProvider>
     </BrowserRouter>
   </HelmetProvider>
 );
