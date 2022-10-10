@@ -47,7 +47,7 @@ export default function AccountPopover() {
     localStorage.removeItem("email");
     console.log(localStorage.getItem("token"));
     setOpen(null);
-    setLoggedIn(false);
+    //setLoggedIn(false);
   };
 
   return (
