@@ -18,7 +18,7 @@ export default function AuthSocial() {
     onSuccess: tokenResponse => {
       console.log(tokenResponse.access_token)
       localStorage.setItem("token", tokenResponse.access_token);
-      setLoggedIn(true);
+      // setLoggedIn(true);
       navigate('/dashboard/pedidos');
     }
   });
@@ -30,7 +30,7 @@ export default function AuthSocial() {
     {
       headers: {
           "Content-type": "application/json",
-           "Authorization": `Bearer ya29.a0Aa4xrXNa66_8RtO6x8FBOBGW5P6eggCLQNou8lu7yykKSNbTRH3OJMkiHa0ZjPT3MtrqcXTe-yx7pxYcFuF7bBSrX7PpGJYnUWumk_anpuZq6uTqLPgTSSZSqe9BPMQdYk4c50Q2pZcmjjklRQtZ54yQrgBYGAaCgYKATASARISFQEjDvL9bYG0RNxMvO6m2oa4wxFUtQ0165`,
+           "Authorization": `Bearer ${localStorage.getItem("token")}`,
       },
   })
     .then(res => {
