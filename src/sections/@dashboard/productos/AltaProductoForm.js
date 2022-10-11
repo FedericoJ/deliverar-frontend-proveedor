@@ -27,23 +27,23 @@ export default function AltaProductoForm() {
 
   const navigate = useNavigate();
 
-
-  const [showPassword, setShowPassword] = useState(false);
-  
-  const [producto,setProducto]=useState('');
-  const [codigoProducto,setCodigo]=useState('');
-  const [stock,setStock]=useState(0);
-  const [precio,setPrecio]=useState(0);
-
-  const GuardarProducto = Yup.object().shape({
-    producto: Yup.string().required('El Nombre del Producto es requerido'),
-    codigoProducto: Yup.string().required('El Código del Producto es requerido'),
-    // stock: Yup.number().positive('Debe ser un numero positivo').required('El Stock es requerido'),
-    // precio: Yup.number().positive('Debe ser un numero positivo').required('El Precio es requerido'),
+  const GuardarProductos = Yup.object().shape({
+    producto: Yup.string().required('El Nombre del Producto es obligatorio'),
+    codigoProducto: Yup.string().required('El Código del Producto es obligatorio'),
+    stock: Yup.number('Debe ser un numero').required('El Stock del Producto es obligatorio').positive('Debe ser un numero positivo').integer('Debe ser un numero entero'),
+    precio: Yup.number('Debe ser un numero').required('El Stock del Producto es obligatorio').positive('Debe ser un numero positivo'),
   });
 
+  const defaultValues = {
+    producto: '',
+    codigoProducto: '',
+    stock: '0',
+    precio: '0',
+  };
+
   const methods = useForm({
-    resolver: yupResolver(GuardarProducto)
+    resolver: yupResolver(GuardarProductos),
+    defaultValues,
   });
 
   const {
@@ -51,42 +51,42 @@ export default function AltaProductoForm() {
     formState: { isSubmitting },
   } = methods;
 
- const onSubmit=(e)=>{
+ const onSubmit=({producto,codigoProducto,stock,precio})=>{
     // navigate('/dashboard', { replace: true });
-      e.preventDefault();
+      // e.preventDefault();
       axios.post(`http://localhost:5000/products/createProduct`,{ descripcion: producto,
-          codProducto: codigoProducto,
-          stock,
-          precio,
-          cuit:0})
-         .then(res => {
-          navigate('/dashboard/productos', { replace: true });
-         }) 
-         .catch(error=>{
-          alert(error)
-         })
+      codProducto: codigoProducto,
+      stock,
+      precio,
+      cuit:0})
+      .then(res => {
+      navigate('/dashboard/productos', { replace: true });
+       }) 
+      .catch(error=>{
+      alert(error)
+      })
     
      
 
     };
 
-    const handleStock=(e)=>{
-      const onlyNums = e.target.value.replace(/[^0-9]/g, '');
-      setStock(onlyNums);
-    }
+    // const handleStock=(e)=>{
+    //   const onlyNums = e.target.value.replace(/[^0-9]/g, '');
+    //   setStock(onlyNums);
+    // }
 
-    const handlePrecio=(e)=>{
-      const onlyNums = e.target.value.replace(/[^0-9]/g, '');
-      setPrecio(onlyNums);
-    }
+    // const handlePrecio=(e)=>{
+    //   const onlyNums = e.target.value.replace(/[^0-9]/g, '');
+    //   setPrecio(onlyNums);
+    // }
   
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
-        <RHFTextField name="producto" label="Nombre Producto" value={producto} onChange={e=>setProducto(e.target.value)}/>
-        <RHFTextField name="codigoProducto" label="Codigo Producto" value={codigoProducto} onChange={e=>setCodigo(e.target.value)}/>
-        <RHFTextField name="stock" label="Stock" value={stock} onChange={handleStock}/>
-        <RHFTextField name="precio" label="Precio Unitario [$]" value={precio} onChange={handlePrecio} />
+        <RHFTextField name="producto" label="Nombre Producto" />
+        <RHFTextField name="codigoProducto" label="Codigo Producto" />
+        <RHFTextField name="stock" label="Stock" />
+        <RHFTextField name="precio" label="Precio Unitario [$]"  />
       </Stack>
 
       <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>

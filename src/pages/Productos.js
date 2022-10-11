@@ -337,6 +337,11 @@ export default function Productos() {
                         <TableCell align="left">{precio}</TableCell>
                         <TableCell align="left">{porcentaje}</TableCell>
                         <TableCell align="left">{FechaVigencia}</TableCell>
+                        {/* <TableCell align="left">
+                          <Label variant="ghost" color={(EstadoOferta === 'En Curso' && 'error') || 'success'}>
+                            {sentenceCase(EstadoOferta)}
+                          </Label>
+                        </TableCell> */}
                         <TableCell align="left">{EstadoOferta}</TableCell>
                         <TableCell align="left">{FecAlta}</TableCell>
                         <TableCell align="right">
