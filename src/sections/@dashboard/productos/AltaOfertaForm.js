@@ -23,26 +23,21 @@ export default function AltaOfertaForm({nombre,codigo}) {
 
   const navigate = useNavigate();
 
-  const [showPassword, setShowPassword] = useState(false);
-  const [name,setName]=useState(nombre);
-  const [codProducto,setCodigo]=useState(codigo);
-  const [cantDescuento,setPorcentaje]=useState();
-  const [fecFinal,setFinal]=useState();
 
-  const LoginSchema = Yup.object().shape({
-    email: Yup.string().email('Email must be a valid email address').required('Email is required'),
-    password: Yup.string().required('Password is required'),
+  const GuardarOferta = Yup.object().shape({
+    descuento: Yup.number('Debe ser un numero').required('El descuento es obligatorio').min(0,'Debe ser un numero positivo'),
+    vigencia: Yup.date().required('La fecha de vigencia es obligatoria'),
   });
 
   const defaultValues = {
-    producto: '',
-    codigoProducto: '',
-    descuento: '',
+    producto: nombre,
+    codigoProducto: codigo,
+    descuento: '0',
     vigencia: '',
   };
 
   const methods = useForm({
-    resolver: yupResolver(LoginSchema),
+    resolver: yupResolver(GuardarOferta),
     defaultValues,
   });
 
@@ -51,14 +46,13 @@ export default function AltaOfertaForm({nombre,codigo}) {
     formState: { isSubmitting },
   } = methods;
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
 
-    axios.post(`http://localhost:5000/products/createOffer`,{
-        codProducto: codigo,
+  const onSubmit= async ({producto,codigoProducto,descuento,vigencia})=>{
+       axios.post(`http://localhost:5000/products/createOffer`,{
+        codProducto: codigoProducto,
         cuit:0,
-        porcentaje:cantDescuento,
-        fecHasta:fecFinal})
+        porcentaje:descuento,
+        fecHasta:vigencia})
        .then(res => {
         navigate('/dashboard/productos', { replace: true });
        }) 
@@ -67,23 +61,22 @@ export default function AltaOfertaForm({nombre,codigo}) {
        })
   };
 
-  const handlePrecio=(e)=>{
-    const onlyNums = e.target.value.replace(/[^0-9]/g, '');
-    setPorcentaje(onlyNums);
-  }
+  // const handlePrecio=(e)=>{
+  //   const onlyNums = e.target.value.replace(/[^0-9]/g, '');
+  //   setPorcentaje(onlyNums);
+  // }
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
-        <RHFTextField  name="producto" disabled  label="Nombre Producto" value={name}/>
-        <RHFTextField  name="codigoProducto" disabled label="Codigo Producto" value={codProducto}/>
-        <RHFTextField name="descuento" label="Descuento [%]" value={cantDescuento} onChange ={handlePrecio}/>
+        <RHFTextField  name="producto" disabled  label="Nombre Producto" />
+        <RHFTextField  name="codigoProducto" disabled label="Codigo Producto" />
+        <RHFTextField name="descuento" label="Descuento [%]" />
         <TextField
             name="vigencia"
             id="date"
             type="date"
             label="Fin Vigencia Oferta"
-            onChange={e=>setFinal(e.target.value)}
             InputLabelProps={{
               shrink: true
             }}
@@ -98,7 +91,7 @@ export default function AltaOfertaForm({nombre,codigo}) {
         </Link> */}
       </Stack>
 
-      <LoadingButton fullWidth size="large" type="submit" variant="contained" onClick={onSubmit} >
+      <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>
         Guardar
       </LoadingButton>
     </FormProvider>

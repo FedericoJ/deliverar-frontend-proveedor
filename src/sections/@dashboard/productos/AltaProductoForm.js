@@ -30,8 +30,8 @@ export default function AltaProductoForm() {
   const GuardarProductos = Yup.object().shape({
     producto: Yup.string().required('El Nombre del Producto es obligatorio'),
     codigoProducto: Yup.string().required('El Código del Producto es obligatorio'),
-    stock: Yup.number('Debe ser un numero').required('El Stock del Producto es obligatorio').positive('Debe ser un numero positivo').integer('Debe ser un numero entero'),
-    precio: Yup.number('Debe ser un numero').required('El Stock del Producto es obligatorio').positive('Debe ser un numero positivo'),
+    stock: Yup.number('Debe ser un numero').min(0,'Debe ser un numero positivo').required('El Stock del Producto es obligatorio').integer('Debe ser un numero entero'),
+    precio: Yup.number('Debe ser un numero').required('El Stock del Producto es obligatorio').min(0,'Debe ser un numero positivo'),
   });
 
   const defaultValues = {
@@ -52,8 +52,6 @@ export default function AltaProductoForm() {
   } = methods;
 
  const onSubmit=({producto,codigoProducto,stock,precio})=>{
-    // navigate('/dashboard', { replace: true });
-      // e.preventDefault();
       axios.post(`http://localhost:5000/products/createProduct`,{ descripcion: producto,
       codProducto: codigoProducto,
       stock,
@@ -69,16 +67,6 @@ export default function AltaProductoForm() {
      
 
     };
-
-    // const handleStock=(e)=>{
-    //   const onlyNums = e.target.value.replace(/[^0-9]/g, '');
-    //   setStock(onlyNums);
-    // }
-
-    // const handlePrecio=(e)=>{
-    //   const onlyNums = e.target.value.replace(/[^0-9]/g, '');
-    //   setPrecio(onlyNums);
-    // }
   
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
