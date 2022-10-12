@@ -1,6 +1,6 @@
 import { filter } from 'lodash';
 import { sentenceCase } from 'change-case';
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 // material
 import {
@@ -31,7 +31,6 @@ import USERLIST from '../_mock/pedidos';
 import {
   AppWidgetSummary,
 } from '../sections/@dashboard/app';
-import AppContext from '../context/index';
 
 // ----------------------------------------------------------------------
 
@@ -87,7 +86,7 @@ export default function User() {
 
   const [filterPedido, setFilterPedido] = useState('');
 
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -137,8 +136,6 @@ export default function User() {
   const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterPedido);
 
   const isUserNotFound = filteredUsers.length === 0;
-
-  const { loggedIn, setLoggedIn } = useContext(AppContext);
 
   return (
     <Page title="Pedidos">
@@ -256,7 +253,7 @@ export default function User() {
           </Scrollbar>
 
           <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
+            rowsPerPageOptions={[10, 20, 30]}
             component="div"
             count={USERLIST.length}
             rowsPerPage={rowsPerPage}

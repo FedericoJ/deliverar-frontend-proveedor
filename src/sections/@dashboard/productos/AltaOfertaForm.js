@@ -47,12 +47,12 @@ export default function AltaOfertaForm({nombre,codigo}) {
   } = methods;
 
 
-  const onSubmit= async ({producto,codigoProducto,descuento,vigencia})=>{
+  const onSubmit= async ({codigoProducto,descuento,vigencia})=>{
        axios.post(`http://localhost:5000/products/createOffer`,{
         codProducto: codigoProducto,
         cuit:0,
-        porcentaje:descuento,
-        fecHasta:vigencia})
+        porcentaje: descuento,
+        fecHasta: vigencia})
        .then(res => {
         navigate('/dashboard/productos', { replace: true });
        }) 
@@ -61,10 +61,6 @@ export default function AltaOfertaForm({nombre,codigo}) {
        })
   };
 
-  // const handlePrecio=(e)=>{
-  //   const onlyNums = e.target.value.replace(/[^0-9]/g, '');
-  //   setPorcentaje(onlyNums);
-  // }
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>

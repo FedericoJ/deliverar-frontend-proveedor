@@ -96,7 +96,7 @@ export default function Productos() {
 
   const [filterProducto, setFilterProducto] = useState('');
 
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
       axios.get(`http://localhost:5000/products/getProducts?cuit=0`)
@@ -338,7 +338,7 @@ export default function Productos() {
                         <TableCell align="left">{porcentaje}</TableCell>
                         <TableCell align="left">{FechaVigencia}</TableCell>
                         {/* <TableCell align="left">
-                          <Label variant="ghost" color={(EstadoOferta === 'En Curso' && 'error') || 'success'}>
+                          <Label variant="ghost" color={(EstadoOferta === 'No Activa' && 'error') || 'success'}>
                             {sentenceCase(EstadoOferta)}
                           </Label>
                         </TableCell> */}
@@ -371,7 +371,7 @@ export default function Productos() {
           </Scrollbar>
 
           <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
+            rowsPerPageOptions={[10, 20, 30]}
             component="div"
             count={productList.length}
             rowsPerPage={rowsPerPage}
