@@ -68,7 +68,10 @@ export default function AltaOferta() {
   const params = new URLSearchParams(searchLocation);
   const codProducto = params.get('codProducto');
   const nomProduct =params.get('Nombre');
-  console.log(nomProduct)
+  const porcentaje=params.get('Porcentaje');
+  const FechaVigencia=params.get('FechaVigencia');
+  console.log("HOLA");
+  console.log(FechaVigencia);
 
 
   return (
@@ -103,7 +106,7 @@ export default function AltaOferta() {
 
             {/* <AuthSocial /> */}
 
-            <AltaOfertaForm nombre={nomProduct} codigo={codProducto}/>
+            <AltaOfertaForm nombre={nomProduct} codigo={codProducto} porcentaje={porcentaje}/>
 
           </ContentStyle>
         </Container>

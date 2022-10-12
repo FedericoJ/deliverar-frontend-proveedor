@@ -19,7 +19,7 @@ import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hoo
 
 // ----------------------------------------------------------------------
 
-export default function AltaOfertaForm({nombre,codigo}) {
+export default function AltaOfertaForm({nombre,codigo,porcentaje, FechaVigencia}) {
 
   const navigate = useNavigate();
 
@@ -32,8 +32,8 @@ export default function AltaOfertaForm({nombre,codigo}) {
   const defaultValues = {
     producto: nombre,
     codigoProducto: codigo,
-    descuento: '0',
-    vigencia: new Date(),
+    descuento: porcentaje,
+    vigencia: FechaVigencia,
   };
 
   const methods = useForm({
