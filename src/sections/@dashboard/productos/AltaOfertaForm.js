@@ -33,7 +33,7 @@ export default function AltaOfertaForm({nombre,codigo}) {
     producto: nombre,
     codigoProducto: codigo,
     descuento: '0',
-    vigencia: '',
+    vigencia: new Date(),
   };
 
   const methods = useForm({
@@ -47,11 +47,10 @@ export default function AltaOfertaForm({nombre,codigo}) {
   } = methods;
 
 
-  const onSubmit= async ({codigoProducto,descuento,vigencia})=>{
-       axios.post(`http://localhost:5000/products/createOffer`,{
-        codProducto: codigoProducto,
+  const onSubmit= ({codigoProducto,descuento,vigencia})=>{
+       axios.post(`http://localhost:5000/products/updateOffer`,{CodProducto: codigoProducto,
         cuit:0,
-        porcentaje: descuento,
+        discount: descuento,
         fecHasta: vigencia})
        .then(res => {
         navigate('/dashboard/productos', { replace: true });
