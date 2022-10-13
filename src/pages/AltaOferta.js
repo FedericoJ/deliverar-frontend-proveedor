@@ -69,9 +69,7 @@ export default function AltaOferta() {
   const codProducto = params.get('codProducto');
   const nomProduct =params.get('Nombre');
   const porcentaje=params.get('Porcentaje');
-  const FechaVigencia=params.get('FechaVigencia');
-  console.log("HOLA");
-  console.log(FechaVigencia);
+  const fechaVigencia=params.get('FechaVigencia');
 
 
   return (
@@ -106,7 +104,7 @@ export default function AltaOferta() {
 
             {/* <AuthSocial /> */}
 
-            <AltaOfertaForm nombre={nomProduct} codigo={codProducto} porcentaje={porcentaje}/>
+            <AltaOfertaForm nombre={nomProduct} codigo={codProducto} porcentaje={porcentaje} fechaVigencia={fechaVigencia}/>
 
           </ContentStyle>
         </Container>

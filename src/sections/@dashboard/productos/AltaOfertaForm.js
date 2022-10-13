@@ -13,13 +13,18 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import axios from 'axios';
+import { parse, format } from 'date-fns';
 // components
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
-
 // ----------------------------------------------------------------------
 
-export default function AltaOfertaForm({nombre,codigo,porcentaje, FechaVigencia}) {
+const parseDate = (dateString) => {
+  const date = parse(dateString, "dd/MM/yyyy", new Date());
+  return format(date, "yyyy-MM-dd");
+};
+
+export default function AltaOfertaForm({nombre,codigo,porcentaje, fechaVigencia}) {
 
   const navigate = useNavigate();
 
@@ -33,9 +38,9 @@ export default function AltaOfertaForm({nombre,codigo,porcentaje, FechaVigencia}
     producto: nombre,
     codigoProducto: codigo,
     descuento: porcentaje,
-    vigencia: FechaVigencia,
+    vigencia: parseDate(fechaVigencia)
   };
-
+  
   const methods = useForm({
     resolver: yupResolver(GuardarOferta),
     defaultValues,
@@ -67,7 +72,7 @@ export default function AltaOfertaForm({nombre,codigo,porcentaje, FechaVigencia}
         <RHFTextField  name="producto" disabled  label="Nombre Producto" />
         <RHFTextField  name="codigoProducto" disabled label="Codigo Producto" />
         <RHFTextField name="descuento" label="Descuento [%]" />
-        <TextField
+        <RHFTextField
             name="vigencia"
             id="date"
             type="date"
