@@ -214,18 +214,18 @@ export default function User() {
                           </Stack>
                         </TableCell> */}
                         <TableCell  align="left">
-                          <Typography variant="h6" noWrap>
+                          <Typography variant="subtitle1" noWrap>
                               {pedido}
                             </Typography></TableCell>
                         <TableCell align="left">{cuit}</TableCell>
                         <TableCell align="left">{franquicia}</TableCell>
                         <TableCell align="left">{importe}</TableCell>
                         <TableCell align="left">{alta}</TableCell>
-                        <TableCell align="left">
-                          <Label variant="ghost" color={(status === 'En Curso' && 'error') || 'success'}>
-                            {sentenceCase(status)}
-                          </Label>
-                        </TableCell>
+                        <TableCell align="left" >
+                        <Typography variant="subtitle1" color={(status === 'En Curso' && 'error') || '#54D62C'}>
+                            {status}
+                        </Typography>
+                           </TableCell>
                         <TableCell align="right">
                           <UserMoreMenu />
                         </TableCell>

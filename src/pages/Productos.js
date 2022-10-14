@@ -329,7 +329,7 @@ export default function Productos() {
                         aria-checked={isItemSelected}
                       >
                         <TableCell  align="left">
-                          <Typography variant="h6" noWrap>
+                          <Typography variant="subtitle1" fontSize={"S"} noWrap>
                               {Descripcion}
                             </Typography></TableCell>
                         <TableCell align="left">{CodProducto}</TableCell>
@@ -342,7 +342,11 @@ export default function Productos() {
                             {sentenceCase(EstadoOferta)}
                           </Label>
                         </TableCell> */}
-                        <TableCell align="left">{EstadoOferta}</TableCell>
+                        <TableCell align="left" >
+                        <Typography variant="subtitle1" color={(EstadoOferta === 'No Activa' && 'error') || '#54D62C'}>
+                            {EstadoOferta}
+                        </Typography>
+                           </TableCell>
                         <TableCell align="left">{FecAlta}</TableCell>
                         <TableCell align="right">
                           <UserMoreMenu product ={row}/>
