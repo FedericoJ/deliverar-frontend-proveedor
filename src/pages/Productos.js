@@ -99,7 +99,7 @@ export default function Productos() {
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
-      axios.get(`http://localhost:5000/products/getProducts?cuit=0`)
+      axios.get(`http://localhost:5001/products/getProducts?cuit=0`)
         .then(res => {
           console.log(res.data)
           if (res.data !== undefined){

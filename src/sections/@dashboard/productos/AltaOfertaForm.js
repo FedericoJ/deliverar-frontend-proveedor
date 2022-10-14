@@ -53,7 +53,7 @@ export default function AltaOfertaForm({nombre,codigo,porcentaje, fechaVigencia}
 
 
   const onSubmit= ({codigoProducto,descuento,vigencia})=>{
-       axios.post(`http://localhost:5000/products/updateOffer`,{CodProducto: codigoProducto,
+       axios.post(`http://localhost:5001/products/updateOffer`,{CodProducto: codigoProducto,
         cuit:0,
         discount: descuento,
         fecHasta: vigencia})

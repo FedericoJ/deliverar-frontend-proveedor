@@ -52,7 +52,7 @@ export default function AltaProductoForm() {
   } = methods;
 
  const onSubmit=({producto,codigoProducto,stock,precio})=>{
-      axios.post(`http://localhost:5000/products/createProduct`,{ descripcion: producto,
+      axios.post(`http://localhost:5001/products/createProduct`,{ descripcion: producto,
       codProducto: codigoProducto,
       stock,
       precio,
