@@ -3,6 +3,7 @@ import { sentenceCase } from 'change-case';
 import  { useState, useRef,useEffect} from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import axios from 'axios';
+import parseCSVToJson from 'papaparse';
 // material
 import {
   Card,
@@ -194,7 +195,10 @@ export default function Productos() {
     inputRef.current.click();
   };
 
+  const [CSVData, setCSVData] = useState();
   const handleFileChange = event => {
+    const commonConfig = { delimiter: "," };
+    const finalJson = {};
     const fileObj = event.target.files && event.target.files[0];
     if (!fileObj) {
       return;
@@ -210,6 +214,34 @@ export default function Productos() {
         // 👇️ can still access file object here
         console.log(fileObj);
         console.log(fileObj.name);
+        
+        parseCSVToJson.parse(
+          fileObj,
+          {
+            ...commonConfig,
+            header: true,
+            complete: (result) => {
+              console.log("aca: ");
+              console.log(result.data);
+              // setCSVData(result.data);
+              finalJson.cuit = 12345678
+              finalJson.usuario = localStorage.getItem("email")
+              finalJson.products = result.data
+              console.log(finalJson)
+
+              axios.post(`http://localhost:5001/products/createMultipleProducts`, finalJson)
+              .then(res => {
+                console.log(res.data)
+                if (res.data !== undefined && res.data.code === 201){
+                  console.log(res.data)
+                  setOpenOK(true);
+                  setOpen(false);
+                }
+              })
+
+            }
+          }
+        );
   };
 
 
