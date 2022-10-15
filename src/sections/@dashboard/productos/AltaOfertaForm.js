@@ -23,9 +23,8 @@ import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hoo
 const parseDate = (dateString) => {
   let fechaaux=dateString;
   if (dateString===''){
-    fechaaux='01/01/2022';
+    fechaaux='01/01/2023';
   }
-  console.log(fechaaux);
   const date = parse(fechaaux, "dd/MM/yyyy", new Date());
   return format(date, "yyyy-MM-dd");
 };
