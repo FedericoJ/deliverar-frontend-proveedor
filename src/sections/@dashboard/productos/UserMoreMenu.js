@@ -13,17 +13,18 @@ export default function UserMoreMenu({product}) {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
-  const onEliminar =()=>{
+  const onEliminar = async ()=>{
 
-    axios.post(`http://localhost:5001/products/deleteProductByCode`,{codProducto:product.CodProducto,
+    await axios.post(`http://localhost:5001/products/deleteProductByCode`,{codProducto:product.CodProducto,
       cuit:0})
       .then(res => {
-          navigate('/dashboard/productos', { replace: true });
+        window.location.reload();
        }) 
       .catch(error=>{
           alert(error)
-      })
+      }) 
     
+     
   }
   // <Link to={`/users/${user.id}`}
   return (
