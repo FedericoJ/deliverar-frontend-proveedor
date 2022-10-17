@@ -46,7 +46,7 @@ export default function LoginForm() {
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
-        <RHFTextField name="email" label="Mail" />
+        {/* <RHFTextField name="email" label="Mail" />
 
         <RHFTextField
           name="password"
@@ -61,14 +61,14 @@ export default function LoginForm() {
               </InputAdornment>
             ),
           }}
-        />
+        /> */}
       </Stack>
 
       <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
-        <RHFCheckbox name="remember" label="Recordarme" />
+        {/* <RHFCheckbox name="remember" label="Recordarme" />
         <Link variant="subtitle2" underline="hover">
           ¿Olvidaste tu contraseña?
-        </Link>
+        </Link> */}
       </Stack>
 
       <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>

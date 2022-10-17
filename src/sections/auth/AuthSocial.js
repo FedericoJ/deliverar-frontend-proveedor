@@ -60,11 +60,6 @@ await axios.get(`https://www.googleapis.com/oauth2/v3/userinfo`,
         </Button> */}
       </Stack>
 
-      <Divider sx={{ my: 3 }}>
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          OR
-        </Typography>
-      </Divider>
     </>
   );
 }

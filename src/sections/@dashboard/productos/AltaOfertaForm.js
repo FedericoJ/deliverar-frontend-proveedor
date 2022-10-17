@@ -32,7 +32,7 @@ export default function AltaOfertaForm({nombre,codigo,porcentaje, fechaVigencia}
 
   const GuardarOferta = Yup.object().shape({
     descuento: Yup.number('Debe ser un numero').required('El descuento es obligatorio').min(0,'Debe ser un numero positivo'),
-    vigencia: Yup.date('Ingresa una fecha').required('La fecha de vigencia es obligatoria'),
+    vigencia: Yup.date().required('La fecha de vigencia es obligatoria'),
   });
 
   const defaultValues = {

@@ -67,14 +67,14 @@ export default function Login() {
         <HeaderStyle>
           <Logo />
 
-          {smUp && (
+          {/* {smUp && (
             <Typography variant="body2" sx={{ mt: { md: -2 } }}>
               ¿Primera vez?{' '}
               <Link variant="subtitle2" component={RouterLink} to="/register">
               Registrate
               </Link>
             </Typography>
-          )}
+          )} */}
         </HeaderStyle>
 
         {/* {mdUp && (
@@ -98,14 +98,14 @@ export default function Login() {
 
             <LoginForm />
 
-            {!smUp && (
+            {/* {!smUp && (
               <Typography variant="body2" align="center" sx={{ mt: 3 }}>
                 ¿Primera vez?{' '}
                 <Link variant="subtitle2" component={RouterLink} to="/register">
                   Registrate
                 </Link>
               </Typography>
-            )}
+            )} */}
           </ContentStyle>
         </Container>
       </RootStyle>
