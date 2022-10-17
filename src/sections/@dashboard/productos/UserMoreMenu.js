@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { useNavigate, Link as RouterLink } from 'react-router-dom';
+import axios from 'axios';
 // material
 import { Menu, MenuItem, IconButton, ListItemIcon, ListItemText,Link } from '@mui/material';
 // component
@@ -10,6 +11,21 @@ import Iconify from '../../../components/Iconify';
 export default function UserMoreMenu({product}) {
   const ref = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const onEliminar = async ()=>{
+
+    await axios.post(`http://localhost:5001/products/deleteProductByCode`,{codProducto:product.CodProducto,
+      cuit:0})
+      .then(res => {
+        window.location.reload();
+       }) 
+      .catch(error=>{
+          alert(error)
+      }) 
+    
+     
+  }
   // <Link to={`/users/${user.id}`}
   return (
     <>
@@ -44,7 +60,7 @@ export default function UserMoreMenu({product}) {
           <ListItemText primary="Editar" primaryTypographyProps={{ variant: 'body2' }} />
         </MenuItem>
 
-        <MenuItem sx={{ color: 'text.secondary' }}>
+        <MenuItem onClick={onEliminar}  sx={{ color: 'text.secondary' }}>
           <ListItemIcon>
             <Iconify icon="eva:trash-2-outline" width={24} height={24} />
           </ListItemIcon>
