@@ -1,6 +1,7 @@
 import { filter } from 'lodash';
 import { sentenceCase } from 'change-case';
-import { useState } from 'react';
+import { useState, useRef,useEffect } from 'react';
+import axios from 'axios';
 import { Link as RouterLink } from 'react-router-dom';
 // material
 import {
@@ -35,12 +36,19 @@ import {
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'pedido', label: 'Pedido', alignRight: false },
-  { id: 'cuit', label: 'CUIT', alignRight: false },
-  { id: 'franquicia', label: 'Franquicia', alignRight: false },
-  { id: 'importe', label: 'Importe [$]', alignRight: false },
-  { id: 'alta', label: 'Fecha Alta', alignRight: false },
-  { id: 'status', label: 'Estado Pedido', alignRight: false },
+  // { id: 'pedido', label: 'Pedido', alignRight: false },
+  // { id: 'cuit', label: 'CUIT', alignRight: false },
+  // { id: 'franquicia', label: 'Franquicia', alignRight: false },
+  // { id: 'importe', label: 'Importe [$]', alignRight: false },
+  // { id: 'alta', label: 'Fecha Alta', alignRight: false },
+  // { id: 'status', label: 'Estado Pedido', alignRight: false },
+  // { id: '' },
+  { id: 'IdPedido', label: 'Pedido', alignRight: false },
+  { id: 'IdFranquicia', label: 'Franquicia', alignRight: false },
+  { id: 'DescripcionFranquicia', label: 'Desc Franquicia', alignRight: false },
+  { id: 'Importe', label: 'Importe [$]', alignRight: false },
+  { id: 'FecAlta', label: 'Fecha Alta', alignRight: false },
+  { id: 'SnFinalizado', label: 'Estado Pedido', alignRight: false },
   { id: '' },
 ];
 
@@ -75,7 +83,14 @@ function applySortFilter(array, comparator, query) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-export default function User() {
+export default function Pedidos() {
+
+  const [orderList,setOrderList]=useState(USERLIST);
+
+  const [ordersOnProgress,setOrdersOnProgress]=useState(0);
+
+  const [ordersFinished,setOrdersFinished]=useState(0);
+
   const [page, setPage] = useState(0);
 
   const [order, setOrder] = useState('asc');
@@ -88,6 +103,39 @@ export default function User() {
 
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
+  useEffect(() => {
+    axios.get(`http://localhost:5001/orders/getOrders?cuit=0`)
+      .then(res => {
+        console.log(res.data)
+        if (res.data !== undefined){
+          setOrderList(res.data);
+        }
+      })
+
+},[]);
+
+useEffect(() => {
+  axios.get(`http://localhost:5001/orders/getOrdersOnProgress?cuit=0`)
+  .then(res => {
+    console.log(res.data)
+    if (res.data !== undefined){
+      setOrdersOnProgress(res.data[0].Cantidad);
+    }
+  })
+
+},[]);
+
+useEffect(() => {
+  axios.get(`http://localhost:5001/orders/getOrdersFinished?cuit=0`)
+  .then(res => {
+    console.log(res.data)
+    if (res.data !== undefined){
+      setOrdersFinished(res.data[0].Cantidad);
+    }
+  })
+
+},[]);
+
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -96,7 +144,7 @@ export default function User() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = USERLIST.map((n) => n.pedido);
+      const newSelecteds = orderList.map((n) => n.pedido);
       setSelected(newSelecteds);
       return;
     }
@@ -131,11 +179,13 @@ export default function User() {
     setFilterPedido(event.target.value);
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - USERLIST.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - orderList.length) : 0;
 
-  const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterPedido);
+  const filteredUsers = applySortFilter(orderList, getComparator(order, orderBy), filterPedido);
 
   const isUserNotFound = filteredUsers.length === 0;
+
+
 
   return (
     <Page title="Pedidos">
@@ -146,10 +196,10 @@ export default function User() {
         </Typography>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="En curso" total={714000}  color="error" icon={'eva:car-outline'} />
+            <AppWidgetSummary title="En curso" total={ordersOnProgress}  color="error" icon={'eva:car-outline'} />
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Finalizados" total={1723315} color="success" icon={'icons8:finish-flag'} />
+            <AppWidgetSummary title="Finalizados" total={ordersFinished} color="success" icon={'icons8:finish-flag'} />
           </Grid>
         </Grid>
         </Container>
@@ -184,27 +234,33 @@ export default function User() {
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={USERLIST.length}
+                  rowCount={orderList.length}
                   numSelected={selected.length}
                   onRequestSort={handleRequestSort}
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, pedido, cuit, franquicia, importe, alta, status } = row;
-                    const isItemSelected = selected.indexOf(pedido) !== -1;
+                    const { IdPedido, IdFranquicia, DescripcionFranquicia, Importe, FecAlta, SnFinalizado } = row;
+                    const isItemSelected = selected.indexOf(IdPedido) !== -1;
+                    let estado
+                    if (SnFinalizado === 'N') {
+                      estado = 'En curso'
+                    } else {
+                      estado = 'Finalizado'
+                    }
 
                     return (
                       <TableRow
                         hover
-                        key={id}
+                        key={IdPedido}
                         tabIndex={-1}
                         role="checkbox"
                         selected={isItemSelected}
                         aria-checked={isItemSelected}
                       >
                         {<TableCell padding="checkbox">
-                          <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, pedido)} />
+                          <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, IdPedido)} />
                         </TableCell> }
                         {/* <TableCell component="th" scope="row" padding="none">
                           <Stack direction="row" alignItems="center" spacing={2}>
@@ -215,15 +271,15 @@ export default function User() {
                         </TableCell> */}
                         <TableCell  align="left">
                           <Typography variant="subtitle1" noWrap>
-                              {pedido}
+                              {IdPedido}
                             </Typography></TableCell>
-                        <TableCell align="left">{cuit}</TableCell>
-                        <TableCell align="left">{franquicia}</TableCell>
-                        <TableCell align="left">{importe}</TableCell>
-                        <TableCell align="left">{alta}</TableCell>
+                        <TableCell align="left">{IdFranquicia}</TableCell>
+                        <TableCell align="left">{DescripcionFranquicia}</TableCell>
+                        <TableCell align="left">{Importe}</TableCell>
+                        <TableCell align="left">{FecAlta}</TableCell>
                         <TableCell align="left" >
-                        <Typography variant="subtitle1" color={(status === 'En Curso' && 'error') || '#54D62C'}>
-                            {status}
+                        <Typography variant="subtitle1" color={(SnFinalizado === 'N' && 'error') || '#54D62C'}>
+                            {estado}
                         </Typography>
                            </TableCell>
                         <TableCell align="right">
@@ -255,7 +311,7 @@ export default function User() {
           <TablePagination
             rowsPerPageOptions={[10, 20, 30]}
             component="div"
-            count={USERLIST.length}
+            count={orderList.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}

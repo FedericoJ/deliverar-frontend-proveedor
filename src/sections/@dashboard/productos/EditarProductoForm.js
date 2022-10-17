@@ -55,7 +55,7 @@ export default function EditarProductoForm({nombre,cod,stockParam,precioParam}) 
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    axios.post(`http://localhost:5000/products/updateProductByCode`,{ descripcion: name,
+    axios.post(`http://localhost:5001/products/updateProductByCode`,{ descripcion: name,
     codProducto: codigo,
     stock:Stock,
     precio:Precio,
