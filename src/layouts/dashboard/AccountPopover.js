@@ -15,7 +15,7 @@ const MENU_OPTIONS = [
   {
     label: 'Home',
     icon: 'eva:home-fill',
-    linkTo: '/',
+    linkTo: '/dashboard/pedidos',
   },
   // {
   //   label: 'Profile',
@@ -46,6 +46,11 @@ export default function AccountPopover() {
     localStorage.removeItem("name");
     localStorage.removeItem("email");
     console.log(localStorage.getItem("token"));
+    setOpen(null);
+    // setLoggedIn(false);
+  };
+
+  const handleCloseMenu = () => {
     setOpen(null);
     // setLoggedIn(false);
   };
@@ -83,7 +88,7 @@ export default function AccountPopover() {
           <MenuPopover
         open={Boolean(open)}
         anchorEl={open}
-        onClose={handleClose}
+        onClose={handleCloseMenu}
         sx={{
           p: 0,
           mt: 1.5,
@@ -107,7 +112,7 @@ export default function AccountPopover() {
 
         <Stack sx={{ p: 1 }}>
           {MENU_OPTIONS.map((option) => (
-            <MenuItem key={option.label} to={option.linkTo} component={RouterLink} onClick={handleClose}>
+            <MenuItem key={option.label} to={option.linkTo} component={RouterLink} onClick={handleCloseMenu}>
               {option.label}
             </MenuItem>
           ))}
@@ -115,7 +120,7 @@ export default function AccountPopover() {
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <MenuItem onClick={handleClose} sx={{ m: 1 }}>
+        <MenuItem onClick={handleClose} to='/login' component={RouterLink} sx={{ m: 1 }}>
           Logout
         </MenuItem>
       </MenuPopover>

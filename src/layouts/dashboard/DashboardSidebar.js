@@ -72,7 +72,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar,isUserL
       :
       (
         <Box sx={{ mb: 5, mx: 2.5 }}>
-        <Link underline="none" component={RouterLink} to="#">
+        <Link underline="none" component={RouterLink} to="/dashboard/pedidos">
           <AccountStyle>
             <Avatar src={localStorage.getItem("profilePic")} alt="photoURL" />
             <Box sx={{ ml: 2 }}>
