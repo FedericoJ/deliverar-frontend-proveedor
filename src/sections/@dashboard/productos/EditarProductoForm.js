@@ -31,15 +31,14 @@ export default function EditarProductoForm({nombre,cod,stockParam,precioParam}) 
   const [Precio,setPrecio]=useState(precioParam);
 
   const LoginSchema = Yup.object().shape({
-    email: Yup.string().email('Email must be a valid email address').required('Email is required'),
-    password: Yup.string().required('Password is required'),
+    precio: Yup.number('Debe ser un numero').required('El Stock del Producto es obligatorio').min(0,'Debe ser un numero positivo'),
   });
 
   const defaultValues = {
     producto: '',
     codigoProducto: '',
-    stock: '',
-    precio: '',
+    stock: '0',
+    precio: '0',
   };
 
   const methods = useForm({
@@ -74,7 +73,7 @@ export default function EditarProductoForm({nombre,cod,stockParam,precioParam}) 
   }
 
   const handlePrecio=(e)=>{
-    const onlyNums = e.target.value.replace(/[^0-9]/g, '');
+    const onlyNums = e.target.value.replace(/[^\d.]+/g, '');
     setPrecio(onlyNums);
   }
 
