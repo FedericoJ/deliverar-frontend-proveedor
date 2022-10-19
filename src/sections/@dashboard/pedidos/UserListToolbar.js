@@ -55,7 +55,7 @@ export default function UserListToolbar({ numSelected, filterPedido, onFilterPed
         <SearchStyle
           value={filterPedido}
           onChange={onFilterPedido}
-          placeholder="Buscar Pedido..."
+          placeholder="Buscar por Nro Pedido..."
           startAdornment={
             <InputAdornment position="start">
               <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled', width: 20, height: 20 }} />
