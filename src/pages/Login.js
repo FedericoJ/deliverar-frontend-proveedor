@@ -88,15 +88,14 @@ export default function Login() {
 
         <Container maxWidth="sm">
           <ContentStyle>
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h4" gutterBottom align='center'>
               Iniciar Sesión
             </Typography>
 
-            <Typography sx={{ color: 'text.secondary', mb: 5 }}>Iniciá sesión mediante una red social</Typography>
+            <Typography align='center' sx={{ color: 'text.secondary', mb: 5 }}>Iniciá sesión con Google</Typography>
 
             <AuthSocial />
 
-            <LoginForm />
 
             {/* {!smUp && (
               <Typography variant="body2" align="center" sx={{ mt: 3 }}>

@@ -33,13 +33,6 @@ export default function UserMoreMenu() {
           </ListItemIcon>
           <ListItemText primary="Detalle" primaryTypographyProps={{ variant: 'body2' }} />
         </MenuItem>
-
-        <MenuItem sx={{ color: 'text.secondary' }}>
-          <ListItemIcon>
-            <Iconify icon="eva:trash-2-outline" width={24} height={24} />
-          </ListItemIcon>
-          <ListItemText primary="Eliminar" primaryTypographyProps={{ variant: 'body2' }} />
-        </MenuItem>
       </Menu>
     </>
   );
