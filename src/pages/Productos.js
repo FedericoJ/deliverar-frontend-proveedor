@@ -224,7 +224,7 @@ export default function Productos() {
               console.log("aca: ");
               console.log(result.data);
               // setCSVData(result.data);
-              finalJson.cuit = 12345678
+              finalJson.cuit = 0
               finalJson.usuario = localStorage.getItem("email")
               finalJson.products = result.data
               console.log(finalJson)
