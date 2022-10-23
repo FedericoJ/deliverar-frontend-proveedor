@@ -175,8 +175,11 @@ export default function Productos() {
   };
 
   const [open, setOpen] = useState(false);
+  const [openInfo, setOpenInfo] = useState(false);
   const handleOpen = () => setOpen(true);
+  const handleOpenInfo = () => setOpenInfo(true);
   const handleClose = () => setOpen(false);
+  const handleCloseInfo = () => setOpenInfo(false);
 
   const [count, setCount] = useState(0);
   const onPress = () => setCount(prevCount => prevCount + 1);
@@ -324,6 +327,25 @@ export default function Productos() {
           </Modal> */}
 
           </Stack>
+          <Button margin={10} variant="contained" onClick={handleOpenInfo} startIcon={<Iconify icon="emojione-v1:information"  />}>
+            Info
+          </Button>
+          <Modal
+            open={openInfo}
+            onClose={handleCloseInfo}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                <u>Columnas:</u> CodProducto, Descripcion, Imagen, Stock, Precio, MedStock
+                <br/>
+                <u>Formato Archivo:</u> .csv
+              </Typography>
+            </Box>
+          </Modal>
+
+        
           <Stack direction="row" >
           <Button variant="contained" component={RouterLink} to="/dashboard/altaProducto" startIcon={<Iconify icon="eva:plus-fill" />}>
             Alta Producto
