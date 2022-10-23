@@ -7,9 +7,10 @@ import Iconify from '../../../components/Iconify';
 
 // ----------------------------------------------------------------------
 
-export default function UserMoreMenu() {
+export default function UserMoreMenu({order}) {
   const ref = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
+  console.log('order.IdPedido',order.IdPedido);
 
   return (
     <>
@@ -27,7 +28,7 @@ export default function UserMoreMenu() {
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
-        <MenuItem component={RouterLink} to='/dashboard/detallePedido' sx={{ color: 'text.secondary' }}>
+        <MenuItem component={RouterLink} to={`/dashboard/detallePedido?IdPedido=${order.IdPedido}`} sx={{ color: 'text.secondary' }}>
           <ListItemIcon>
             <Iconify icon="bx:detail" width={24} height={24} />
           </ListItemIcon>

@@ -104,37 +104,40 @@ export default function Pedidos() {
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
-    axios.get(`http://localhost:5001/orders/getOrders?cuit=0`)
-      .then(res => {
-        console.log(res.data)
-        if (res.data !== undefined){
-          setOrderList(res.data);
-        }
-      })
-
-},[]);
+    if(!selected.length){
+      axios.get(`http://localhost:5001/orders/getOrders?cuit=0`)
+        .then(res => {
+          console.log(res.data)
+          if (res.data !== undefined){
+            setOrderList(res.data);
+          }
+        })
+    }
+},[selected]);
 
 useEffect(() => {
-  axios.get(`http://localhost:5001/orders/getOrdersOnProgress?cuit=0`)
-  .then(res => {
-    console.log(res.data)
-    if (res.data !== undefined){
-      setOrdersOnProgress(res.data[0].Cantidad);
-    }
-  })
-
-},[]);
+  if(!selected.length) {
+    axios.get(`http://localhost:5001/orders/getOrdersOnProgress?cuit=0`)
+    .then(res => {
+      console.log(res.data)
+      if (res.data !== undefined){
+        setOrdersOnProgress(res.data[0].Cantidad);
+      }
+    })
+  }
+},[selected]);
 
 useEffect(() => {
-  axios.get(`http://localhost:5001/orders/getOrdersFinished?cuit=0`)
-  .then(res => {
-    console.log(res.data)
-    if (res.data !== undefined){
-      setOrdersFinished(res.data[0].Cantidad);
-    }
-  })
-
-},[]);
+  if(!selected.length) {
+    axios.get(`http://localhost:5001/orders/getOrdersFinished?cuit=0`)
+    .then(res => {
+      console.log(res.data)
+      if (res.data !== undefined){
+        setOrdersFinished(res.data[0].Cantidad);
+      }
+    })
+  }
+},[selected]);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -178,6 +181,24 @@ useEffect(() => {
   const handleFilterByPedido = (event) => {
     setFilterPedido(event.target.value);
   };
+
+  const createPayload = () => {
+    const detail = [];
+
+    if(selected.length) {
+      selected.forEach(idPedido => detail.push({ idPedido }));
+    }
+
+    return detail;
+  }
+
+  const handleFinalizarPedido = () => {
+    
+    axios.post(`http://localhost:5001/orders/updateOrderStatus`, { detail: createPayload() }).then(() => {
+      setSelected([]);
+    }).catch(() => {
+    });
+  }
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - orderList.length) : 0;
 
@@ -225,7 +246,7 @@ useEffect(() => {
         </Stack>
 
         <Card>
-         <UserListToolbar numSelected={selected.length} filterPedido={filterPedido} onFilterPedido={handleFilterByPedido} />
+         <UserListToolbar numSelected={selected.length} isDisabled={!selected.length} onFinalizarPedido={handleFinalizarPedido} filterPedido={filterPedido} onFilterPedido={handleFilterByPedido} />
           
           <Scrollbar>
             <TableContainer sx={{ minWidth: 800 }}>
@@ -243,7 +264,8 @@ useEffect(() => {
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                     const { IdPedido, IdFranquicia, DescripcionFranquicia, Importe, FecAlta, SnFinalizado } = row;
                     const isItemSelected = selected.indexOf(IdPedido) !== -1;
-                    let estado
+                    
+                    let estado = ''
                     if (SnFinalizado === 'N') {
                       estado = 'En curso'
                     } else {
@@ -260,7 +282,7 @@ useEffect(() => {
                         aria-checked={isItemSelected}
                       >
                         {<TableCell padding="checkbox">
-                          <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, IdPedido)} />
+                          <Checkbox checked={isItemSelected} disabled={estado === 'Finalizado'} onChange={(event) => handleClick(event, IdPedido)} />
                         </TableCell> }
                         {/* <TableCell component="th" scope="row" padding="none">
                           <Stack direction="row" alignItems="center" spacing={2}>
@@ -283,7 +305,7 @@ useEffect(() => {
                         </Typography>
                            </TableCell>
                         <TableCell align="right">
-                          <UserMoreMenu />
+                          <UserMoreMenu order = {row}/>
                         </TableCell>
                       </TableRow>
                     );

@@ -1,6 +1,7 @@
 import { filter } from 'lodash';
 import { sentenceCase } from 'change-case';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Link as RouterLink } from 'react-router-dom';
 // material
 import {
@@ -68,7 +69,10 @@ function applySortFilter(array, comparator, query) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-export default function User() {
+export default function DetallePedido() {
+
+  const [orderList,setOrderList]=useState(USERLIST);
+
   const [page, setPage] = useState(0);
 
   const [order, setOrder] = useState('asc');
@@ -81,6 +85,25 @@ export default function User() {
 
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
+  const searchLocation = window.location.search?.slice(1);
+
+  const params = new URLSearchParams(searchLocation);
+
+  const IdPedido = params.get('IdPedido');
+
+  
+
+  useEffect(() => {
+    axios.get(`http://localhost:5001/orders/getOrdersDetail?idPedido=${IdPedido}`)
+      .then(res => {
+        console.log(res.data)
+        if (res.data !== undefined){
+          setOrderList(res.data);
+        }
+      })
+
+},[]);
+
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -89,7 +112,7 @@ export default function User() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = USERLIST.map((n) => n.producto);
+      const newSelecteds = orderList.map((n) => n.producto);
       setSelected(newSelecteds);
       return;
     }
@@ -124,9 +147,9 @@ export default function User() {
     setFilterProducto(event.target.value);
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - USERLIST.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - orderList.length) : 0;
 
-  const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterProducto);
+  const filteredUsers = applySortFilter(orderList, getComparator(order, orderBy), filterProducto);
 
   const isUserNotFound = filteredUsers.length === 0;
 
@@ -155,20 +178,20 @@ export default function User() {
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={USERLIST.length}
+                  rowCount={orderList.length}
                   numSelected={selected.length}
                   onRequestSort={handleRequestSort}
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, producto, codigoProducto,cantidad,importe} = row;
-                    const isItemSelected = selected.indexOf(producto) !== -1;
+                    const { Producto, CodigoProducto,Cantidad,Importe} = row;
+                    const isItemSelected = selected.indexOf(Producto) !== -1;
 
                     return (
                       <TableRow
                         hover
-                        key={id}
+                        key={CodigoProducto}
                         tabIndex={-1}
                         role="checkbox"
                         selected={isItemSelected}
@@ -187,11 +210,11 @@ export default function User() {
                         </TableCell> */}
                         <TableCell  align="left">
                           <Typography variant="h6" noWrap>
-                              {producto}
+                              {Producto}
                             </Typography></TableCell>
-                        <TableCell align="left">{codigoProducto}</TableCell>
-                        <TableCell align="left">{cantidad}</TableCell>
-                        <TableCell align="left">{importe}</TableCell>
+                        <TableCell align="left">{CodigoProducto}</TableCell>
+                        <TableCell align="left">{Cantidad}</TableCell>
+                        <TableCell align="left">{Importe}</TableCell>
 
                       </TableRow>
                     );
@@ -219,7 +242,7 @@ export default function User() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={USERLIST.length}
+            count={orderList.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}

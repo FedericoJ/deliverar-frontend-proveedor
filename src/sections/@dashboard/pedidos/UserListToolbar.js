@@ -35,9 +35,11 @@ UserListToolbar.propTypes = {
   numSelected: PropTypes.number,
   filterPedido: PropTypes.string,
   onFilterPedido: PropTypes.func,
+  isDisabled: PropTypes.bool,
+  onFinalizarPedido: PropTypes.func
 };
 
-export default function UserListToolbar({ numSelected, filterPedido, onFilterPedido }) {
+export default function UserListToolbar({ numSelected, isDisabled, onFinalizarPedido, filterPedido, onFilterPedido }) {
   return (
     <RootStyle
       sx={{
@@ -64,7 +66,7 @@ export default function UserListToolbar({ numSelected, filterPedido, onFilterPed
         />
       )}
 
-        <Button variant="contained" component={RouterLink} to="#" startIcon={<Iconify icon="akar-icons:check" />}>
+        <Button variant="contained" disabled={isDisabled} onClick={() => onFinalizarPedido()} component={RouterLink} to="#" startIcon={<Iconify icon="akar-icons:check" />}>
             Finalizar Pedido
         </Button>
       {/* {numSelected > 0 ? (
