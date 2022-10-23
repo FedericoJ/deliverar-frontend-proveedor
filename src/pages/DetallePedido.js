@@ -32,7 +32,7 @@ import USERLIST from '../_mock/detallePedido';
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'producto', label: 'Producto', alignRight: false },
+  { id: 'Descripcion', label: 'Producto', alignRight: false },
   { id: 'codigoProducto', label: 'Código Producto', alignRight: false },
   { id: 'cantidad', label: 'Cantidad', alignRight: false },
   { id: 'importe', label: 'Importe [$]', alignRight: false },
@@ -64,7 +64,7 @@ function applySortFilter(array, comparator, query) {
     return a[1] - b[1];
   });
   if (query) {
-    return filter(array, (_user) => _user.producto.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+    return filter(array, (_user) => _user.Descripcion.toLowerCase().indexOf(query.toLowerCase()) !== -1);
   }
   return stabilizedThis.map((el) => el[0]);
 }
@@ -185,13 +185,13 @@ export default function DetallePedido() {
                 />
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { Producto, CodigoProducto,Cantidad,Importe} = row;
-                    const isItemSelected = selected.indexOf(Producto) !== -1;
+                    const { Descripcion, CodigoProducto,Cantidad,Importe} = row;
+                    const isItemSelected = selected.indexOf(Descripcion) !== -1;
 
                     return (
                       <TableRow
                         hover
-                        key={CodigoProducto}
+                        key={Descripcion}
                         tabIndex={-1}
                         role="checkbox"
                         selected={isItemSelected}
@@ -210,7 +210,7 @@ export default function DetallePedido() {
                         </TableCell> */}
                         <TableCell  align="left">
                           <Typography variant="h6" noWrap>
-                              {Producto}
+                              {Descripcion}
                             </Typography></TableCell>
                         <TableCell align="left">{CodigoProducto}</TableCell>
                         <TableCell align="left">{Cantidad}</TableCell>
