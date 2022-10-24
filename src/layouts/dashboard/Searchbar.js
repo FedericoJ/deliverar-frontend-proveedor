@@ -53,10 +53,10 @@ export default function Searchbar() {
    return (
   <Grid container spacing={3}>
     <Grid item xs={12} sm={6} md={3}>
-      <EncabezadoProveedor proveedor="Fanaoca" />
+      <EncabezadoProveedor proveedor="Proveedor: Bimbo" />
     </Grid>
     <Grid item xs={12} sm={6} md={3}>
-      <EncabezadoProveedor cuit="20352677958"/>
+      <EncabezadoProveedor cuit="CUIT: 20-3526779-58"/>
     </Grid>
   </Grid>
     //  <ClickAwayListener onClickAway={handleClose}>
