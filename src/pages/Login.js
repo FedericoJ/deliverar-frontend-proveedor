@@ -88,8 +88,8 @@ export default function Login() {
 
         <Container maxWidth="sm">
           <ContentStyle>
-            <Typography variant="h4" gutterBottom align='center'>
-              Iniciar Sesión
+            <Typography variant="h3" gutterBottom align='center'>
+              Bienvenido a DeliverAR!
             </Typography>
 
             <Typography align='center' sx={{ color: 'text.secondary', mb: 5 }}>Iniciá sesión con Google</Typography>

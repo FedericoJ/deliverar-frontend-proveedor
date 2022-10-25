@@ -48,7 +48,11 @@ await axios.get(`https://www.googleapis.com/oauth2/v3/userinfo`,
     <>
       <Stack direction="row" spacing={2}>
         <Button fullWidth size="large" color="inherit" variant="outlined" onClick={() => login()}>
-          <Iconify icon="eva:google-fill" color="#DF3E30" width={22} height={22} />
+        {/* <Stack direction="row" marginRight={2}>
+          <Iconify icon="logos:google-gmail" color="#DF3E30" width={35} height={35}  />
+        </Stack> */}
+          <Iconify icon="logos:google" color="#DF3E30" width={90} height={90} />
+          
         </Button>
 
         {/* <Button fullWidth size="large" color="inherit" variant="outlined">
