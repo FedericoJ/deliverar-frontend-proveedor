@@ -338,9 +338,11 @@ export default function Productos() {
           >
             <Box sx={style}>
               <Typography id="modal-modal-title" variant="h6" component="h2">
-                <u>Columnas:</u> CodProducto, Descripcion, Imagen, Stock, Precio, MedStock
+                <u>Información para carga masiva:</u> 
                 <br/>
-                <u>Formato Archivo:</u> .csv
+                - Columnas: CodProducto, Descripcion, Imagen, Stock, Precio, MedStock
+                <br/>
+                - Formato Archivo: .csv
               </Typography>
             </Box>
           </Modal>
