@@ -27,6 +27,7 @@ import Scrollbar from '../components/Scrollbar';
 import Iconify from '../components/Iconify';
 import SearchNotFound from '../components/SearchNotFound';
 import { UserListHead, UserListToolbar, UserMoreMenu } from '../sections/@dashboard/pedidos';
+import baseUrl from '../baseUrl';
 // mock
 import USERLIST from '../_mock/pedidos';
 import {
@@ -105,7 +106,7 @@ export default function Pedidos() {
 
   useEffect(() => {
     if(!selected.length){
-      axios.get(`http://localhost:5001/orders/getOrders?cuit=0`)
+      axios.get(`${baseUrl}/orders/getOrders?cuit=0`)
         .then(res => {
           console.log(res.data)
           if (res.data !== undefined){
@@ -117,7 +118,7 @@ export default function Pedidos() {
 
 useEffect(() => {
   if(!selected.length) {
-    axios.get(`http://localhost:5001/orders/getOrdersOnProgress?cuit=0`)
+    axios.get(`${baseUrl}/orders/getOrdersOnProgress?cuit=0`)
     .then(res => {
       console.log(res.data)
       if (res.data !== undefined){
@@ -129,7 +130,7 @@ useEffect(() => {
 
 useEffect(() => {
   if(!selected.length) {
-    axios.get(`http://localhost:5001/orders/getOrdersFinished?cuit=0`)
+    axios.get(`${baseUrl}/orders/getOrdersFinished?cuit=0`)
     .then(res => {
       console.log(res.data)
       if (res.data !== undefined){
@@ -194,7 +195,7 @@ useEffect(() => {
 
   const handleFinalizarPedido = () => {
     
-    axios.post(`http://localhost:5001/orders/updateOrderStatus`, { detail: createPayload() }).then(() => {
+    axios.post(`${baseUrl}/orders/updateOrderStatus`, { detail: createPayload() }).then(() => {
       setSelected([]);
     }).catch(() => {
     });

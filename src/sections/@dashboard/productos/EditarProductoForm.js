@@ -16,6 +16,7 @@ import axios from 'axios';
 // components
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
+import baseUrl from '../../../baseUrl';
 
 
 // ----------------------------------------------------------------------
@@ -54,7 +55,7 @@ export default function EditarProductoForm({nombre,cod,stockParam,precioParam}) 
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    axios.post(`http://localhost:5001/products/updateProductByCode`,{ descripcion: name,
+    axios.post(`${baseUrl}/products/updateProductByCode`,{ descripcion: name,
     codProducto: codigo,
     stock:Stock,
     precio:Precio,

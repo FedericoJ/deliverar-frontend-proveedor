@@ -30,6 +30,7 @@ import Scrollbar from '../components/Scrollbar';
 import Iconify from '../components/Iconify';
 import SearchNotFound from '../components/SearchNotFound';
 import { UserListHead, UserListToolbar, UserMoreMenu } from '../sections/@dashboard/productos';
+import baseUrl from '../baseUrl';
 
 // mock
 import USERLIST from '../_mock/user';
@@ -100,7 +101,7 @@ export default function Productos() {
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
-      axios.get(`http://localhost:5001/products/getProducts?cuit=0`)
+      axios.get(`${baseUrl}/products/getProducts?cuit=0`)
         .then(res => {
           console.log(res.data)
           if (res.data !== undefined){
@@ -232,7 +233,7 @@ export default function Productos() {
               finalJson.products = result.data
               console.log(finalJson)
 
-              axios.post(`http://localhost:5001/products/createMultipleProducts`, finalJson)
+              axios.post(`${baseUrl}/products/createMultipleProducts`, finalJson)
               .then(res => {
                 console.log(res.data)
                 if (res.data !== undefined && res.data.code === 201){

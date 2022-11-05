@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Menu, MenuItem, IconButton, ListItemIcon, ListItemText,Link } from '@mui/material';
 // component
 import Iconify from '../../../components/Iconify';
+import baseUrl from '../../../baseUrl';
 
 // ----------------------------------------------------------------------
 
@@ -15,7 +16,7 @@ export default function UserMoreMenu({product}) {
 
   const onEliminar = async ()=>{
 
-    await axios.post(`http://localhost:5001/products/deleteProductByCode`,{codProducto:product.CodProducto,
+    await axios.post(`${baseUrl}/products/deleteProductByCode`,{codProducto:product.CodProducto,
       cuit:0})
       .then(res => {
         window.location.reload();

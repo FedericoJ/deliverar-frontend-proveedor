@@ -28,6 +28,7 @@ import SearchNotFound from '../components/SearchNotFound';
 import { UserListHead, UserListToolbar, UserMoreMenu } from '../sections/@dashboard/detallePedido';
 // mock
 import USERLIST from '../_mock/detallePedido';
+import baseUrl from '../baseUrl';
 
 // ----------------------------------------------------------------------
 
@@ -94,7 +95,7 @@ export default function DetallePedido() {
   
 
   useEffect(() => {
-    axios.get(`http://localhost:5001/orders/getOrdersDetail?idPedido=${IdPedido}`)
+    axios.get(`${baseUrl}/orders/getOrdersDetail?idPedido=${IdPedido}`)
       .then(res => {
         console.log(res.data)
         if (res.data !== undefined){

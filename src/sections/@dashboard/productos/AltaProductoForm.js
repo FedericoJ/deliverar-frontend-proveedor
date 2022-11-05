@@ -16,6 +16,7 @@ import InputLabel from '@mui/material/InputLabel';
 // components
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
+import baseUrl from '../../../baseUrl';
 
 
 // ----------------------------------------------------------------------
@@ -52,7 +53,7 @@ export default function AltaProductoForm() {
   } = methods;
 
  const onSubmit=({producto,codigoProducto,stock,precio})=>{
-      axios.post(`http://localhost:5001/products/createProduct`,{ descripcion: producto,
+      axios.post(`${baseUrl}/products/createProduct`,{ descripcion: producto,
       codProducto: codigoProducto,
       stock,
       precio,

@@ -17,6 +17,7 @@ import { parse, format } from 'date-fns';
 // components
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
+import baseUrl from '../../../baseUrl';
 
 // ----------------------------------------------------------------------
 
@@ -58,7 +59,7 @@ export default function AltaOfertaForm({nombre,codigo,porcentaje, fechaVigencia}
 
 
   const onSubmit= ({codigoProducto,descuento,vigencia})=>{
-       axios.post(`http://localhost:5001/products/updateOffer`,{CodProducto: codigoProducto,
+       axios.post(`${baseUrl}/products/updateOffer`,{CodProducto: codigoProducto,
         cuit:0,
         discount: descuento,
         fecHasta: vigencia})
