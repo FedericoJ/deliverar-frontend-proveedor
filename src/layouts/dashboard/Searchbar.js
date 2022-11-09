@@ -51,12 +51,12 @@ export default function Searchbar() {
   };  
 
    return (
-  <Grid container spacing={3}>
-    <Grid item xs={12} sm={6} md={3}>
-      <EncabezadoProveedor proveedor="Proveedor: Bimbo" />
+  <Grid container spacing={10}>
+    <Grid item >
+      <EncabezadoProveedor proveedor="Proveedor: PepsiCo" />
     </Grid>
-    <Grid item xs={12} sm={6} md={3}>
-      <EncabezadoProveedor cuit="CUIT: 20-3526779-58"/>
+    <Grid item >
+      <EncabezadoProveedor cuit="CUIT: 30-53764771-6"/>
     </Grid>
   </Grid>
     //  <ClickAwayListener onClickAway={handleClose}>

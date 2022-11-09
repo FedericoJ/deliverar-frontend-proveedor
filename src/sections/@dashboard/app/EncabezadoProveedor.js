@@ -35,8 +35,8 @@ export default function EncabezadoProveedor({proveedor, cuit}) {
           py: 0.5,
           boxShadow: 0,
           textAlign: 'center',
-          //  color: "#366BD6",
-          //  bgcolor: "#366BD6",
+          // color: "#5F2F2F",
+          bgcolor: "#F9FAFB",
         }}
     >
       <Typography color={"#366BD6"} variant="h3">
