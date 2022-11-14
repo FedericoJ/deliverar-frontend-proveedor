@@ -31,6 +31,7 @@ import Iconify from '../components/Iconify';
 import SearchNotFound from '../components/SearchNotFound';
 import { UserListHead, UserListToolbar, UserMoreMenu } from '../sections/@dashboard/productos';
 import baseUrl from '../baseUrl';
+import { CUIT_PEPSICO } from '../globals'
 
 // mock
 import USERLIST from '../_mock/user';
@@ -101,7 +102,7 @@ export default function Productos() {
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
-      axios.get(`${baseUrl}/products/getProducts?cuit=0`)
+      axios.get(`${baseUrl}/products/getProducts?cuit=${CUIT_PEPSICO}`)
         .then(res => {
           console.log(res.data)
           if (res.data !== undefined){

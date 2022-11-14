@@ -33,6 +33,7 @@ import USERLIST from '../_mock/pedidos';
 import {
   AppWidgetSummary,
 } from '../sections/@dashboard/app';
+import { CUIT_PEPSICO } from '../globals'
 
 // ----------------------------------------------------------------------
 
@@ -106,7 +107,7 @@ export default function Pedidos() {
 
   useEffect(() => {
     if(!selected.length){
-      axios.get(`${baseUrl}/orders/getOrders?cuit=0`)
+      axios.get(`${baseUrl}/orders/getOrders?cuit=${CUIT_PEPSICO}`)
         .then(res => {
           console.log(res.data)
           if (res.data !== undefined){
@@ -118,7 +119,7 @@ export default function Pedidos() {
 
 useEffect(() => {
   if(!selected.length) {
-    axios.get(`${baseUrl}/orders/getOrdersOnProgress?cuit=0`)
+    axios.get(`${baseUrl}/orders/getOrdersOnProgress?cuit=${CUIT_PEPSICO}`)
     .then(res => {
       console.log(res.data)
       if (res.data !== undefined){
@@ -130,7 +131,7 @@ useEffect(() => {
 
 useEffect(() => {
   if(!selected.length) {
-    axios.get(`${baseUrl}/orders/getOrdersFinished?cuit=0`)
+    axios.get(`${baseUrl}/orders/getOrdersFinished?cuit=${CUIT_PEPSICO}`)
     .then(res => {
       console.log(res.data)
       if (res.data !== undefined){
