@@ -20,7 +20,7 @@ export default function AuthSocial() {
       localStorage.setItem("token", tokenResponse.access_token);
       getUserData();
       // setLoggedIn(true);
-      navigate('/dashboard/pedidos');
+      navigate('/pepsico/dashboard/pedidos');
     }
   });
 

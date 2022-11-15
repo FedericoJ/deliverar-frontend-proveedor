@@ -13,12 +13,12 @@ const navConfig = [
   // },
   {
     title: 'pedidos',
-    path: '/dashboard/pedidos',
+    path: '/pepsico/dashboard/pedidos',
     icon: getIcon('eva:pie-chart-2-fill'),
   },
   {
     title: 'productos',
-    path: '/dashboard/productos',
+    path: '/pepsico/dashboard/productos',
     icon: getIcon('eva:shopping-bag-fill'),
   },
  

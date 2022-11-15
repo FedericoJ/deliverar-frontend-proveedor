@@ -22,7 +22,7 @@ import DetallePedido from './pages/DetallePedido';
 export default function Router() {
   return useRoutes([
     {
-      path: '/pepsico/dashboard',
+      path: '/pepsico/dashboard/',
       element: <DashboardLayout />,
       children: [
         { path: 'products', element: <Products /> },
