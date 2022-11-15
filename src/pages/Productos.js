@@ -351,7 +351,7 @@ export default function Productos() {
 
         
           <Stack direction="row" >
-          <Button variant="contained" component={RouterLink} to="/dashboard/altaProducto" startIcon={<Iconify icon="eva:plus-fill" />}>
+          <Button variant="contained" component={RouterLink} to="/pepsico/dashboard/altaProducto" startIcon={<Iconify icon="eva:plus-fill" />}>
             Alta Producto
           </Button>
           </Stack>

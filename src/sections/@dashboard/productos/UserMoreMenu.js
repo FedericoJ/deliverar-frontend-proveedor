@@ -45,7 +45,7 @@ export default function UserMoreMenu({product}) {
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
 
-        <MenuItem component ={RouterLink} to={`/dashboard/altaOferta?codProducto=${product.CodProducto}&Nombre=${product.Descripcion}&Porcentaje=${product.porcentaje}&FechaVigencia=${product.FechaVigencia}`}  sx={{ color: 'text.secondary' }}>
+        <MenuItem component ={RouterLink} to={`/pepsico/dashboard/altaOferta?codProducto=${product.CodProducto}&Nombre=${product.Descripcion}&Porcentaje=${product.porcentaje}&FechaVigencia=${product.FechaVigencia}`}  sx={{ color: 'text.secondary' }}>
           <ListItemIcon>
             <Iconify icon="eva:shopping-bag-fill" width={24} height={24} />
           </ListItemIcon>
@@ -53,7 +53,7 @@ export default function UserMoreMenu({product}) {
         </MenuItem>
 
 
-        <MenuItem component={RouterLink} to={`/dashboard/EditarProducto?codProducto=${product.CodProducto}&Nombre=${product.Descripcion}&Stock=${product.Stock}&Precio=${product.precio}`} 
+        <MenuItem component={RouterLink} to={`/pepsico/dashboard/EditarProducto?codProducto=${product.CodProducto}&Nombre=${product.Descripcion}&Stock=${product.Stock}&Precio=${product.precio}`} 
         sx={{ color: 'text.secondary' }}>
           <ListItemIcon>
             <Iconify icon="eva:edit-fill" width={24} height={24} />

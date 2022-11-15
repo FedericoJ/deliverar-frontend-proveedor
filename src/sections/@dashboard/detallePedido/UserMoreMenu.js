@@ -28,7 +28,7 @@ export default function UserMoreMenu() {
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
 
-        <MenuItem component={RouterLink} to='/dashboard/altaOferta' sx={{ color: 'text.secondary' }}>
+        <MenuItem component={RouterLink} to='/pepsico/dashboard/altaOferta' sx={{ color: 'text.secondary' }}>
           <ListItemIcon>
             <Iconify icon="eva:shopping-bag-fill" width={24} height={24} />
           </ListItemIcon>
@@ -36,7 +36,7 @@ export default function UserMoreMenu() {
         </MenuItem>
 
 
-        <MenuItem component={RouterLink} to='/dashboard/EditarProducto' sx={{ color: 'text.secondary' }}>
+        <MenuItem component={RouterLink} to='/pepsico/dashboard/EditarProducto' sx={{ color: 'text.secondary' }}>
           <ListItemIcon>
             <Iconify icon="eva:edit-fill" width={24} height={24} />
           </ListItemIcon>

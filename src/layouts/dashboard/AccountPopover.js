@@ -15,7 +15,7 @@ const MENU_OPTIONS = [
   {
     label: 'Home',
     icon: 'eva:home-fill',
-    linkTo: '/dashboard/pedidos',
+    linkTo: '/pepsico/dashboard/pedidos',
   },
   // {
   //   label: 'Profile',

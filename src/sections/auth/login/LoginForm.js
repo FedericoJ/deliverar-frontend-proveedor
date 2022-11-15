@@ -40,7 +40,7 @@ export default function LoginForm() {
   } = methods;
 
   const onSubmit = async () => {
-    navigate('/dashboard/pedidos', { replace: true });
+    navigate('/pepsico/dashboard/pedidos', { replace: true });
   };
 
   return (

@@ -162,7 +162,7 @@ export default function DetallePedido() {
             Detalle del Pedido
           </Typography>
           <Stack direction="row" >
-          <Button variant="contained" component={RouterLink} to="/dashboard/pedidos" startIcon={<Iconify icon="bx:arrow-back" />}>
+          <Button variant="contained" component={RouterLink} to="/pepsico/dashboard/pedidos" startIcon={<Iconify icon="bx:arrow-back" />}>
             Volver
           </Button>
           </Stack>

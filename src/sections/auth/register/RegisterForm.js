@@ -43,7 +43,7 @@ export default function RegisterForm() {
   } = methods;
 
   const onSubmit = async () => {
-    navigate('/dashboard', { replace: true });
+    navigate('/pepsico/dashboard', { replace: true });
   };
 
   return (

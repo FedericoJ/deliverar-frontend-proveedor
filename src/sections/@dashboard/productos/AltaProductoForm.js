@@ -59,7 +59,7 @@ export default function AltaProductoForm() {
       precio,
       cuit:0})
       .then(res => {
-      navigate('/dashboard/productos', { replace: true });
+      navigate('/pepsico/dashboard/productos', { replace: true });
        }) 
       .catch(error=>{
       alert(error)
