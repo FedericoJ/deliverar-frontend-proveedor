@@ -35,7 +35,7 @@ export default function Router() {
       ],
     },
     {
-      path: 'login',
+      path: '/pepsico/login',
       element: <Login />,
     },
     {
@@ -46,7 +46,7 @@ export default function Router() {
       path: '/',
       element: <LogoOnlyLayout />,
       children: [
-        { path: '/', element: <Navigate to="/login" /> },
+        { path: '/', element: <Navigate to="/pepsico/login" /> },
         { path: '404', element: <NotFound /> },
         { path: '*', element: <Navigate to="/404" /> },
       ],

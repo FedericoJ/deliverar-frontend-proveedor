@@ -120,7 +120,7 @@ export default function AccountPopover() {
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <MenuItem onClick={handleClose} to='/login' component={RouterLink} sx={{ m: 1 }}>
+        <MenuItem onClick={handleClose} to='/pepsico/login' component={RouterLink} sx={{ m: 1 }}>
           Logout
         </MenuItem>
       </MenuPopover>

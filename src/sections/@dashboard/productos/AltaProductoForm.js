@@ -17,7 +17,7 @@ import InputLabel from '@mui/material/InputLabel';
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
 import baseUrl from '../../../baseUrl';
-
+import { CUIT_PEPSICO } from '../../../globals';
 
 // ----------------------------------------------------------------------
 
@@ -57,7 +57,7 @@ export default function AltaProductoForm() {
       codProducto: codigoProducto,
       stock,
       precio,
-      cuit:0})
+      cuit:CUIT_PEPSICO})
       .then(res => {
       navigate('/pepsico/dashboard/productos', { replace: true });
        }) 

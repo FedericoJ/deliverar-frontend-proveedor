@@ -18,6 +18,7 @@ import { parse, format } from 'date-fns';
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
 import baseUrl from '../../../baseUrl';
+import { CUIT_PEPSICO } from '../../../globals';
 
 // ----------------------------------------------------------------------
 
@@ -60,7 +61,7 @@ export default function AltaOfertaForm({nombre,codigo,porcentaje, fechaVigencia}
 
   const onSubmit= ({codigoProducto,descuento,vigencia})=>{
        axios.post(`${baseUrl}/products/updateOffer`,{CodProducto: codigoProducto,
-        cuit:0,
+        cuit:CUIT_PEPSICO,
         discount: descuento,
         fecHasta: vigencia})
        .then(res => {

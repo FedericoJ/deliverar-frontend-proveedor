@@ -6,7 +6,7 @@ import { Menu, MenuItem, IconButton, ListItemIcon, ListItemText,Link } from '@mu
 // component
 import Iconify from '../../../components/Iconify';
 import baseUrl from '../../../baseUrl';
-
+import { CUIT_PEPSICO } from '../../../globals';
 // ----------------------------------------------------------------------
 
 export default function UserMoreMenu({product}) {
@@ -17,7 +17,7 @@ export default function UserMoreMenu({product}) {
   const onEliminar = async ()=>{
 
     await axios.post(`${baseUrl}/products/deleteProductByCode`,{codProducto:product.CodProducto,
-      cuit:0})
+      cuit:CUIT_PEPSICO})
       .then(res => {
         window.location.reload();
        }) 

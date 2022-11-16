@@ -17,7 +17,7 @@ import axios from 'axios';
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
 import baseUrl from '../../../baseUrl';
-
+import { CUIT_PEPSICO } from '../../../globals';
 
 // ----------------------------------------------------------------------
 
@@ -59,7 +59,7 @@ export default function EditarProductoForm({nombre,cod,stockParam,precioParam}) 
     codProducto: codigo,
     stock:Stock,
     precio:Precio,
-    cuit:0})
+    cuit:CUIT_PEPSICO})
    .then(res => {
       navigate('/pepsico/dashboard/productos', { replace: true });
    }) 
