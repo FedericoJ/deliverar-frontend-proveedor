@@ -61,7 +61,7 @@ export default function EditarProductoForm({nombre,cod,stockParam,precioParam}) 
     precio:Precio,
     cuit:0})
    .then(res => {
-      navigate('/dashboard/productos', { replace: true });
+      navigate('/pepsico/dashboard/productos', { replace: true });
    }) 
    .catch(error=>{
     alert(error)

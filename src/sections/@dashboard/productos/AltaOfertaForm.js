@@ -64,7 +64,7 @@ export default function AltaOfertaForm({nombre,codigo,porcentaje, fechaVigencia}
         discount: descuento,
         fecHasta: vigencia})
        .then(res => {
-        navigate('/dashboard/productos', { replace: true });
+        navigate('/pepsico/dashboard/productos', { replace: true });
        }) 
        .catch(error=>{
         alert(error)
