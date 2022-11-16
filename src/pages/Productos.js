@@ -229,7 +229,7 @@ export default function Productos() {
               console.log("aca: ");
               console.log(result.data);
               // setCSVData(result.data);
-              finalJson.cuit = 0
+              finalJson.cuit = CUIT_PEPSICO
               finalJson.usuario = localStorage.getItem("email")
               finalJson.products = result.data
               console.log(finalJson)
