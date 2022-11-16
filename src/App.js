@@ -1,5 +1,5 @@
 import React from 'react';
-// routes
+// routess
 import Router from './routes';
 // theme
 import ThemeProvider from './theme';
