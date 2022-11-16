@@ -28,7 +28,7 @@ export default function UserMoreMenu({order}) {
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
-        <MenuItem component={RouterLink} to={`/pepsico/detallePedido?IdPedido=${order.IdPedido}`} sx={{ color: 'text.secondary' }}>
+        <MenuItem component={RouterLink} to={`/pepsico/dashboard/detallePedido?IdPedido=${order.IdPedido}`} sx={{ color: 'text.secondary' }}>
           <ListItemIcon>
             <Iconify icon="bx:detail" width={24} height={24} />
           </ListItemIcon>
