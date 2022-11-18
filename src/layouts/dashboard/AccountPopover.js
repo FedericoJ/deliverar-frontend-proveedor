@@ -13,7 +13,7 @@ import AppContext from '../../context/index';
 
 const MENU_OPTIONS = [
   {
-    label: 'Home',
+    label: 'Inicio',
     icon: 'eva:home-fill',
     linkTo: '/pepsico/dashboard/pedidos',
   },
@@ -121,7 +121,7 @@ export default function AccountPopover() {
         <Divider sx={{ borderStyle: 'dashed' }} />
 
         <MenuItem onClick={handleClose} to='/pepsico/login' component={RouterLink} sx={{ m: 1 }}>
-          Logout
+          Cerrar Sesión
         </MenuItem>
       </MenuPopover>
 </>
